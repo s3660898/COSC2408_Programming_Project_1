@@ -32,6 +32,7 @@ namespace CarShare
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<CarShareUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -72,9 +73,18 @@ namespace CarShare
 
         private async Task CreateAdmin(IServiceProvider serviceProvider)
         {
-            //var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<CarShareUser>>();
+            string[] roles = { "User", "Admin" };
 
+            // setting up roles
+            foreach(string role in roles)
+            {
+                if (await roleManager.RoleExistsAsync(role) == false)
+                    await roleManager.CreateAsync(new IdentityRole(role));
+            }
+
+            // setting up admin
             if (await userManager.FindByEmailAsync("admin@admin.com") == null)
             {
                 var powerUser = new CarShareUser
@@ -86,6 +96,11 @@ namespace CarShare
 
                 var powerUserCreate = await userManager.CreateAsync(powerUser, powerUserPassword);
             }
+
+            // assigning admin user to admin role
+            var admin = await userManager.FindByEmailAsync("admin@admin.com");
+            if(await userManager.IsInRoleAsync(admin, "Admin") == false)
+                await userManager.AddToRoleAsync(admin, "Admin");
         }
     }
 }

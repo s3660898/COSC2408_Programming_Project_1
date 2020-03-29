@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarShare.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: /<controller>/
