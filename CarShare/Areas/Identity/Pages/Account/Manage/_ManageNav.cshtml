@@ -1,4 +1,5 @@
-﻿@inject SignInManager<CarShareUser> SignInManager
+﻿@using CarShare.Identity.Data; 
+@inject SignInManager<CarShareUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
