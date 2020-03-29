@@ -38,7 +38,7 @@ namespace CarShare
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -66,6 +66,26 @@ namespace CarShare
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateAdmin(serviceProvider).Wait();
+        }
+
+        private async Task CreateAdmin(IServiceProvider serviceProvider)
+        {
+            //var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<CarShareUser>>();
+
+            if (await userManager.FindByEmailAsync("admin@admin.com") == null)
+            {
+                var powerUser = new CarShareUser
+                {
+                    UserName = "admin@admin.com",
+                    Email = "admin@admin.com"
+                };
+                string powerUserPassword = "Admin123!";
+
+                var powerUserCreate = await userManager.CreateAsync(powerUser, powerUserPassword);
+            }
         }
     }
 }
