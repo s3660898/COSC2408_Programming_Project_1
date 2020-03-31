@@ -23,24 +23,60 @@
                 @switch (c.Status)
                 {
                     case Status.InUse:
-                        <tr style = "background-color:#c6ffbc">
-                          <td class="td_cust">@c.Registration</td>
-                          <td class="td_cust">@c.Make</td>
-                          <td class="td_cust">@c.Status</td>
+                        <tr style="background-color:#c6ffbc">
+                            <td class="td_cust">@c.Registration</td>
+                            <td class="td_cust">@c.Make</td>
+                            <td class="td_cust">@c.Status</td>
                         </tr>
                         break;
                     case Status.Available:
                         <tr>
-                          <td class="td_cust">@c.Registration</td>
-                          <td class="td_cust">@c.Make</td>
-                          <td class="td_cust">@c.Status</td>
+                            <td class="td_cust">@c.Registration</td>
+                            <td class="td_cust">@c.Make</td>
+                            <td class="td_cust">@c.Status</td>
                         </tr>
                         break;
                     case Status.Suspended:
-                        <tr style = "background-color:#ffa5a5">
-                          <td class="td_cust">@c.Registration</td>
-                          <td class="td_cust">@c.Make</td>
-                          <td class="td_cust">@c.Status</td>
+                        <tr style="background-color:#ffa5a5">
+                            <td class="td_cust">@c.Registration</td>
+                            <td class="td_cust">@c.Make</td>
+                            <td class="td_cust">@c.Status</td>
+                        </tr>
+                        break;
+                }
+
+            }
+        </table>
+        <h3>User Status</h3>
+        <table class="table">
+            <tr>
+                <th>Fullname</th>
+                <th>Password</th>
+                <th>Current User Status</th>
+            </tr>
+            @foreach (var c in ViewBag.UserList)
+            {
+                @switch (c.UserStatus)
+                {
+                    case UserStatus.RentingVehicle:
+                        <tr style="background-color:darkseagreen">
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.Password</td>
+                            <td class="td_cust">@c.UserStatus</td>
+                        </tr>
+                        break;
+                    case UserStatus.NotCurrentlyRenting:
+                        <tr>
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.Password</td>
+                            <td class="td_cust">@c.UserStatus</td>
+                        </tr>
+                        break;
+                    case UserStatus.Banned:
+                        <tr style="background-color:crimson">
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.Password</td>
+                            <td class="td_cust">@c.UserStatus</td>
                         </tr>
                         break;
                 }
