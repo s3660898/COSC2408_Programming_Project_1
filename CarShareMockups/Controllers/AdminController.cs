@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarShareMockups.Models;
 using Microsoft.AspNetCore.Mvc;
+using static CarShareMockups.Models.UserViewModel;
+using CarFleetViewModel = CarShareMockups.Models.CarFleetViewModel;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,6 +27,21 @@ namespace CarShareMockups.Controllers
                 new CarFleetViewModel{Registration="CIH384", Make="Yellow Kia Cerato", Status=Status.Available},
                 new CarFleetViewModel{Registration="VOA927", Make="White Mitsubishi Triton", Status=Status.Suspended},
                 new CarFleetViewModel{Registration="USB308", Make="Blakc Toyota Triton", Status=Status.Suspended}
+            };
+            return View();
+        }
+
+        public IActionResult UserManagement()
+        { 
+            ViewBag.UserList = new List<UserViewModel>
+            {
+                new UserViewModel{Fullname="Michael Weaver", UserStatus=UserStatus.CurrentlyHiring, LastUseDate="13-2-2020", LastVehicleUsed="ABC123"},
+                new UserViewModel{Fullname="Jane Wong", UserStatus=UserStatus.Banned, LastUseDate="26-12-2019", LastVehicleUsed="VOA927"},
+                new UserViewModel{Fullname="Penny Green", UserStatus=UserStatus.Valid, LastUseDate="5-10-2019", LastVehicleUsed="CIH384"},
+                new UserViewModel{Fullname="Andy Jones", UserStatus=UserStatus.CurrentlyHiring, LastUseDate="11-10-2019", LastVehicleUsed="ASD223"},
+                new UserViewModel{Fullname="Freddy Logan", UserStatus=UserStatus.Valid, LastUseDate="12-9-2019", LastVehicleUsed="LKJ735"},
+                new UserViewModel{Fullname="Sandy Dunn", UserStatus=UserStatus.InvalidEmail, LastUseDate="Has Not Rented Before", LastVehicleUsed="Has Not Rented Before"},
+                new UserViewModel{Fullname="Martin West", UserStatus=UserStatus.Banned, LastUseDate="19-4-2019", LastVehicleUsed="USB308"},
             };
             return View();
         }

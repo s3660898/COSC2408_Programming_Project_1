@@ -20,6 +20,13 @@ namespace CarShare.Controllers
 
         public IActionResult Index()
         {
+            if(User?.Identity.IsAuthenticated == true)
+            {
+                if (User.IsInRole("Admin"))
+                    return RedirectToAction("Index", "Admin");
+                else
+                    return RedirectToAction("Index", "User");
+            }
             return View();
         }
 

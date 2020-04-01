@@ -1,0 +1,59 @@
+﻿@{
+}
+
+<h1>UserManagement</h1>
+
+
+<h3>User Status</h3>
+<header>
+    <p>
+        <label>Search User Management: </label><input type="text" id="adminText" value="" />
+    </p>
+</header>
+        <table class="table">
+            <tr>
+                <th>Fullname</th>
+                <th>Current User Status</th>
+                <th>Last Use Date</th>
+                <th>Last Vehicle Used</th>
+            </tr>
+            @foreach (var c in ViewBag.UserList)
+            {
+                @switch (c.UserStatus)
+                {
+                    case UserStatus.CurrentlyHiring:
+                        <tr style="background-color:lightgreen">
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.UserStatus</td>
+                            <td class="td_cust">@c.LastUseDate</td>
+                            <td class="td_cust">@c.LastVehicleUsed</td>
+                        </tr>
+                        break;
+                    case UserStatus.Valid:
+                        <tr>
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.UserStatus</td>
+                            <td class="td_cust">@c.LastUseDate</td>
+                            <td class="td_cust">@c.LastVehicleUsed</td>
+                        </tr>
+                        break;
+                    case UserStatus.InvalidEmail:
+                        <tr style="background-color:orange">
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.UserStatus</td>
+                            <td class="td_cust">@c.LastUseDate</td>
+                            <td class="td_cust">@c.LastVehicleUsed</td>
+                        </tr>
+                        break;
+                    case UserStatus.Banned:
+                        <tr style="background-color:indianred">
+                            <td class="td_cust">@c.Fullname</td>
+                            <td class="td_cust">@c.UserStatus</td>
+                            <td class="td_cust">@c.LastUseDate</td>
+                            <td class="td_cust">@c.LastVehicleUsed</td>
+                        </tr>
+                        break;
+                }
+
+            }
+        </table>

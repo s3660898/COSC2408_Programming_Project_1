@@ -3,6 +3,9 @@
 
 <h2>Admin Portal</h2>
 
+<p>
+    <label>Search Vehicle Management: </label><input type="text" id="adminText" value="" />
+</p>
 <div class="row">
     <div class="col-sm">
         <h3>Usage Overview</h3>
@@ -23,24 +26,24 @@
                 @switch (c.Status)
                 {
                     case Status.InUse:
-                        <tr style = "background-color:#c6ffbc">
-                          <td class="td_cust">@c.Registration</td>
-                          <td class="td_cust">@c.Make</td>
-                          <td class="td_cust">@c.Status</td>
+                        <tr style="background-color:#c6ffbc">
+                            <td class="td_cust">@c.Registration</td>
+                            <td class="td_cust">@c.Make</td>
+                            <td class="td_cust">@c.Status</td>
                         </tr>
                         break;
                     case Status.Available:
                         <tr>
-                          <td class="td_cust">@c.Registration</td>
-                          <td class="td_cust">@c.Make</td>
-                          <td class="td_cust">@c.Status</td>
+                            <td class="td_cust">@c.Registration</td>
+                            <td class="td_cust">@c.Make</td>
+                            <td class="td_cust">@c.Status</td>
                         </tr>
                         break;
                     case Status.Suspended:
-                        <tr style = "background-color:#ffa5a5">
-                          <td class="td_cust">@c.Registration</td>
-                          <td class="td_cust">@c.Make</td>
-                          <td class="td_cust">@c.Status</td>
+                        <tr style="background-color:#ffa5a5">
+                            <td class="td_cust">@c.Registration</td>
+                            <td class="td_cust">@c.Make</td>
+                            <td class="td_cust">@c.Status</td>
                         </tr>
                         break;
                 }
