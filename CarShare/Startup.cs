@@ -90,13 +90,14 @@ namespace CarShare
                 var powerUser = new CarShareUser
                 {
                     UserName = "admin@admin.com",
-                    Email = "admin@admin.com"
+                    Email = "admin@admin.com",
+                    EmailConfirmed = true
                 };
                 string powerUserPassword = "Admin123!";
 
                 var powerUserCreate = await userManager.CreateAsync(powerUser, powerUserPassword);
             }
-
+            
             // assigning admin user to admin role
             var admin = await userManager.FindByEmailAsync("admin@admin.com");
             if(await userManager.IsInRoleAsync(admin, "Admin") == false)
