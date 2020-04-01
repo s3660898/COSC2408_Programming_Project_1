@@ -7,15 +7,17 @@ namespace CarShareMockups.Models
 {
         public enum UserStatus
         {
-            RentingVehicle,
-            NotCurrentlyRenting,
+            CurrentlyHiring,
+            Valid,
+            InvalidEmail,
             Banned
         }
 
         public class UserViewModel
         {
             public String Fullname { get; set; }
-            public String Password { get; set; }
             public Enum UserStatus { get; set; }
-        }
+            public String LastUseDate { get; set; }
+            public String LastVehicleUsed { get; set; }
+    }
 }

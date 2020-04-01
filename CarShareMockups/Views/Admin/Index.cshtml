@@ -3,6 +3,9 @@
 
 <h2>Admin Portal</h2>
 
+<p>
+    <label>Search Vehicle Management: </label><input type="text" id="adminText" value="" />
+</p>
 <div class="row">
     <div class="col-sm">
         <h3>Usage Overview</h3>
@@ -41,42 +44,6 @@
                             <td class="td_cust">@c.Registration</td>
                             <td class="td_cust">@c.Make</td>
                             <td class="td_cust">@c.Status</td>
-                        </tr>
-                        break;
-                }
-
-            }
-        </table>
-        <h3>User Status</h3>
-        <table class="table">
-            <tr>
-                <th>Fullname</th>
-                <th>Password</th>
-                <th>Current User Status</th>
-            </tr>
-            @foreach (var c in ViewBag.UserList)
-            {
-                @switch (c.UserStatus)
-                {
-                    case UserStatus.RentingVehicle:
-                        <tr style="background-color:darkseagreen">
-                            <td class="td_cust">@c.Fullname</td>
-                            <td class="td_cust">@c.Password</td>
-                            <td class="td_cust">@c.UserStatus</td>
-                        </tr>
-                        break;
-                    case UserStatus.NotCurrentlyRenting:
-                        <tr>
-                            <td class="td_cust">@c.Fullname</td>
-                            <td class="td_cust">@c.Password</td>
-                            <td class="td_cust">@c.UserStatus</td>
-                        </tr>
-                        break;
-                    case UserStatus.Banned:
-                        <tr style="background-color:crimson">
-                            <td class="td_cust">@c.Fullname</td>
-                            <td class="td_cust">@c.Password</td>
-                            <td class="td_cust">@c.UserStatus</td>
                         </tr>
                         break;
                 }

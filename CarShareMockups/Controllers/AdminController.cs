@@ -28,16 +28,20 @@ namespace CarShareMockups.Controllers
                 new CarFleetViewModel{Registration="VOA927", Make="White Mitsubishi Triton", Status=Status.Suspended},
                 new CarFleetViewModel{Registration="USB308", Make="Blakc Toyota Triton", Status=Status.Suspended}
             };
+            return View();
+        }
 
+        public IActionResult UserManagement()
+        { 
             ViewBag.UserList = new List<UserViewModel>
             {
-                new UserViewModel{Fullname="Michael Weaver", Password="M1&htyM1ke55", UserStatus=UserStatus.RentingVehicle},
-                new UserViewModel{Fullname="Jane Wong", Password="lK7>4j", UserStatus=UserStatus.Banned},
-                new UserViewModel{Fullname="Penny Green", Password="Bern@dette67", UserStatus=UserStatus.NotCurrentlyRenting},
-                new UserViewModel{Fullname="Andy Jones", Password="4t&yA9", UserStatus=UserStatus.RentingVehicle},
-                new UserViewModel{Fullname="Freddy Logan", Password="L8th<a?23Tp#", UserStatus=UserStatus.NotCurrentlyRenting},
-                new UserViewModel{Fullname="Sandy Dunn", Password="Im:)2b24", UserStatus=UserStatus.RentingVehicle},
-                new UserViewModel{Fullname="Martin West", Password="u79?jG5vDC", UserStatus=UserStatus.Banned},
+                new UserViewModel{Fullname="Michael Weaver", UserStatus=UserStatus.CurrentlyHiring, LastUseDate="13-2-2020", LastVehicleUsed="ABC123"},
+                new UserViewModel{Fullname="Jane Wong", UserStatus=UserStatus.Banned, LastUseDate="26-12-2019", LastVehicleUsed="VOA927"},
+                new UserViewModel{Fullname="Penny Green", UserStatus=UserStatus.Valid, LastUseDate="5-10-2019", LastVehicleUsed="CIH384"},
+                new UserViewModel{Fullname="Andy Jones", UserStatus=UserStatus.CurrentlyHiring, LastUseDate="11-10-2019", LastVehicleUsed="ASD223"},
+                new UserViewModel{Fullname="Freddy Logan", UserStatus=UserStatus.Valid, LastUseDate="12-9-2019", LastVehicleUsed="LKJ735"},
+                new UserViewModel{Fullname="Sandy Dunn", UserStatus=UserStatus.InvalidEmail, LastUseDate="Has Not Rented Before", LastVehicleUsed="Has Not Rented Before"},
+                new UserViewModel{Fullname="Martin West", UserStatus=UserStatus.Banned, LastUseDate="19-4-2019", LastVehicleUsed="USB308"},
             };
             return View();
         }
