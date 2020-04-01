@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Fleet Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
+    <h2>Fleet Management</h2>
+    <a class="btn btn-primary" href="#">Add Car</a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Registration</th>
+        <th>Description</th>
+        <th>Status</th>
+    </tr>
+    @foreach (var c in ViewBag.CarList)
+    {
+        @switch (c.Status)
+        {
+            case CarStatus.InUse:
+                <tr style="background-color:#c6ffbc">
+                    <td class="td_cust">@c.Registration</td>
+                    <td class="td_cust">@c.Description</td>
+                    <td class="td_cust">@c.Status</td>
+                </tr>
+                break;
+            case CarStatus.Available:
+                <tr>
+                    <td class="td_cust">@c.Registration</td>
+                    <td class="td_cust">@c.Description</td>
+                    <td class="td_cust">@c.Status</td>
+                </tr>
+                break;
+            case CarStatus.Suspended:
+                <tr style="background-color:#ffa5a5">
+                    <td class="td_cust">@c.Registration</td>
+                    <td class="td_cust">@c.Description</td>
+                    <td class="td_cust">@c.Status</td>
+                </tr>
+                break;
+        }
+
+    }
+</table>
