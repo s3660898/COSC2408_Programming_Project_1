@@ -29,7 +29,7 @@ namespace CarShare.Models
         public CarStatus Status { get; set; }
         public CarCategory Category { get; set; }
         public int NumSeats { get; set; }
-        public float Longitue { get; set; }
+        public float Longitude { get; set; }
         public float Latitude { get; set; }
     }
 }

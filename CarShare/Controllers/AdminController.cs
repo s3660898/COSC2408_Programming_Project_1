@@ -40,5 +40,12 @@ namespace CarShare.Controllers
 
             return View();
         }
+
+        public IActionResult ViewCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+
+            return View(car);
+        }
     }
 }
