@@ -9,6 +9,8 @@ namespace CarShare.Identity.Data
     // Add profile data for application users by adding properties to the CarShareUser class
     public class CarShareUser : IdentityUser
     {
-        public string CustomTag { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
     }
 }
