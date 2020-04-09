@@ -1,0 +1,28 @@
+﻿@model CarShare.Identity.Data.CarShareUser
+@{
+    ViewData["Title"] = "ViewUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ViewUser</h1>
+
+<table class="table">
+    <tr>
+        <td>First Name:</td>
+        <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+        <td>Last Name: </td>
+        <td>@Model.LastName</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <td>User Status:</td>
+        <td>@Model.UserStatus</td>
+    </tr>
+</table>
+
+

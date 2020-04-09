@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CarShare.Identity.Data;
+using CarShare.Models;
 
 namespace CarShare.Data
 {
