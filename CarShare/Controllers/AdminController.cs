@@ -36,7 +36,7 @@ namespace CarShare.Controllers
             ViewBag.UserList = new List<UserViewModel>();
             foreach (CarShareUser c in UserList)
             {
-                ViewBag.UserList.Add(new UserViewModel() { Id = c.Id, FirstName = c.FirstName, LastName = c.LastName, Address = c.Address, UserStatus = c.UserStatus });
+                ViewBag.UserList.Add(new UserViewModel() { Id = c.Id, Email = c.Email, Address = c.Address, UserStatus = c.UserStatus });
             }
 
             return View();

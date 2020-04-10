@@ -8,7 +8,7 @@
 
 <table class="table">
     <tr>
-        <th>User Name</th>
+        <th>Email</th>
         <th>Address</th>
         <th>User Status</th>
         <th></th>
@@ -17,10 +17,9 @@
     {
         @switch (c.UserStatus)
         {
-            // Change Username to Email
             case UserStatus.Valid:
                 <tr class="click-row" data-href="ViewUser?Id=@c.Id" style="background-color:#c6ffbc">
-                    <td class="td_cust">@c.FirstName @c.LastName</td>
+                    <td class="td_cust">@c.Email</td>
                     <td class="td_cust">@c.Address</td>
                     <td class="td_cust">@c.UserStatus</td>
                     <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
@@ -28,7 +27,7 @@
                 break;
             case UserStatus.CurrentlyHiring:
                 <tr style="background-color:lightblue">
-                    <td class="td_cust">@c.FirstName @c.LastName</td>
+                    <td class="td_cust">@c.Email</td>
                     <td class="td_cust">@c.Address</td>
                     <td class="td_cust">@c.UserStatus</td>
                     <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
@@ -36,7 +35,7 @@
                 break;
             case UserStatus.InvalidEmail:
                 <tr style="background-color:Orange">
-                    <td class="td_cust">@c.FirstName @c.LastName</td>
+                    <td class="td_cust">@c.Email</td>
                     <td class="td_cust">@c.Address</td>
                     <td class="td_cust">@c.UserStatus</td>
                     <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
@@ -44,7 +43,7 @@
                 break;
             case UserStatus.Banned:
                 <tr style="background-color:#ffa5a5">
-                    <td class="td_cust">@c.FirstName @c.LastName</td>
+                    <td class="td_cust">@c.Email</td>
                     <td class="td_cust">@c.Address</td>
                     <td class="td_cust">@c.UserStatus</td>
                     <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
