@@ -1,0 +1,48 @@
+﻿@model CarShare.Models.AddCarViewModel;
+@{
+    ViewData["Title"] = "AddCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddCar</h1>
+
+
+
+<form asp-action="AddCar" asp-controller="Admin" autocomplete="off">
+    <table class="table">
+        <tr>
+            <td>
+                <label asp-for="Registration"></label>
+            </td>
+            <td>
+                <input asp-for="Registration" placeholder="Registration" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Description"></label>
+            </td>
+            <td>
+                <input asp-for="Description" placeholder="Description" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Category"></label>
+            </td>
+            <td>
+                <select asp-for="Category" asp-items="Html.GetEnumSelectList<CarCategory>()"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="NumSeats"></label>
+            </td>
+            <td>
+                <input asp-for="NumSeats" placeholder="4" class="form-control" />
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
