@@ -7,6 +7,12 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Identity\Data\CarShareContext.cs" />
+    <Compile Remove="Data\Migrations\20200413082259_AddedCarHistory.cs" />
+    <Compile Remove="Data\Migrations\20200413082259_AddedCarHistory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200413082506_AddedCarHistory.cs" />
+    <Compile Remove="Data\Migrations\20200413082506_AddedCarHistory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200413082741_AddedCarHistory.cs" />
+    <Compile Remove="Data\Migrations\20200413082741_AddedCarHistory.Designer.cs" />
   </ItemGroup>
 
 
