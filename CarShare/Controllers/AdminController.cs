@@ -47,5 +47,29 @@ namespace CarShare.Controllers
 
             return View(car);
         }
+
+        public IActionResult AddCar()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddCar(AddCarViewModel model)
+        {
+            Car c = new Car()
+            {
+                Registration = model.Registration,
+                Description = model.Description,
+                Category = model.Category,
+                Status = CarStatus.Available,
+                Latitude = 0,
+                Longitude = 0
+            };
+
+            _db.Cars.Add(c);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
+        }
     }
 }
