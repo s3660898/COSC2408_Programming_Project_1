@@ -1,0 +1,26 @@
+﻿@model CarShare.Models.CarHistory
+@{
+    ViewData["Title"] = "ViewCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View Car</h1>
+
+<table class="table">
+    <tr>
+        <td>Id:</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>HireTime:</td>
+        <td>@Model.HireTime</td>
+    </tr>
+    <tr>
+        <td>HireDuration:</td>
+        <td>@Model.HireDuration</td>
+    </tr>
+    <tr>
+        <td>ReturnedTime:</td>
+        <td>@Model.ReturnedTime</td>
+    </tr>
+</table>
