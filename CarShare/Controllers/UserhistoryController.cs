@@ -9,24 +9,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarShare.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class HistoryController : Controller
+    public class UserhistoryController : Controller
     {
-
         ApplicationDbContext _db;
 
-        public HistoryController(ApplicationDbContext db)
+        public UserhistoryController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public IActionResult Index()
         {
-
-            //var CarHistory = _db.CarHistory.SingleOrDefault(c => c.Id == 1);
             return View();
         }
-
-
     }
 }
