@@ -1,22 +1,32 @@
-﻿
+﻿@model CarShare.Models.CarHistory
 @{
     ViewData["Title"] = "ViewCarHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>View Car History</h1>
+<form asp-action="Search">
+    <div><input type="text" name="users"> <input type="Submit" value="Search"> </div>
+</form>
 
-<table class="table">
-    <tr>
-        <td>Id:</td>
-    </tr>
-    <tr>
-        <td>HireTime:</td>
-    </tr>
-    <tr>
-        <td>HireDuration:</td>
-    </tr>
-    <tr>
-        <td>ReturnedTime:</td>
-    </tr>
-</table>
+    <table class="table">
+
+
+        @foreach (var CH in ViewBag.CarHistoryList)
+        {
+            <tr>
+                <td>Id:</td>
+                <td>@CH.Id</td>
+            </tr>
+            <tr>
+                <td>HireTime:</td>
+            </tr>
+            <tr>
+                <td>HireDuration:</td>
+            </tr>
+            <tr>
+                <td>ReturnedTime:</td>
+            </tr>
+        }
+    </table>
+

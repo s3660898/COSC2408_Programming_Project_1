@@ -18,7 +18,7 @@ namespace CarShare.Data
         public DbSet<Car> Cars { get; set; }
 
 
-        public DbSet<CarHistory> CarHistory { get; set; }
+       public DbSet<CarHistory> CarHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

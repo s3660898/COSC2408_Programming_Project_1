@@ -6,6 +6,7 @@ using CarShare.Data;
 using CarShare.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CarShare.Controllers
 {
@@ -13,19 +14,52 @@ namespace CarShare.Controllers
     public class HistoryController : Controller
     {
 
-        ApplicationDbContext _db;
+        private ApplicationDbContext _db;
 
-        public HistoryController(ApplicationDbContext db)
+        private ILogger<HistoryController> _logger;
+
+        public HistoryController(ApplicationDbContext db, ILogger<HistoryController> _logger)
         {
             _db = db;
+            _logger = _logger;
         }
 
         public IActionResult Index()
         {
+            var CarHistory = _db.CarHistory.OrderBy(a => a.Id).ToList();
 
-            //var CarHistory = _db.CarHistory.SingleOrDefault(c => c.Id == 1);
+            //_logger.LogInformation("Total record {0}", CarHistory.Count != null ? CarHistory.Count : 0);
+
+            ViewBag.CarHistoryList = new List<CarHistory>();
+
+
+            foreach (CarHistory c in CarHistory)
+            {
+                ViewBag.CarHistoryList.Add(c);
+            }
+
             return View();
         }
+
+
+        public IActionResult Search()
+        {
+            /*
+            var CarHistory = _db.CarHistory.OrderBy(a => a.Id).ToList();
+
+            //_logger.LogInformation("Total record {0}", CarHistory.Count != null ? CarHistory.Count : 0);
+
+            ViewBag.CarHistoryList = new List<CarHistory>();
+
+
+            foreach (CarHistory c in CarHistory)
+            {
+                ViewBag.CarHistoryList.Add(c);
+            }*/
+
+            return View();
+        }
+
 
 
     }
