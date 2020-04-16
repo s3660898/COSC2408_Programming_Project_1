@@ -35,6 +35,7 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+                            @*Authenticates the Admin. If authorised the admin can view the Admin Index page and the UserManagement page*@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 if (User.IsInRole("Admin"))

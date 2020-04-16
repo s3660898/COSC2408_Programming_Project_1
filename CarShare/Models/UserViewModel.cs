@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarShare.Models
 {
-
+    // Displayed public fields for users and their getters/setters: Id, Email, Address, UserStatus
     public class UserViewModel
     {
         public string Id { get; set; }

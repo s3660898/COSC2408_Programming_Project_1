@@ -13,6 +13,8 @@
         <th>User Status</th>
         <th></th>
     </tr>
+    @*Creates the ViewBag for the User, and assigns different colours based upon the user status: AwaitingHire = lightgreen, 
+        CurrentlyHiring = lightblue, InvalidEmail = orange, Banned = red*@
     @foreach (var c in ViewBag.UserList)
     {
         @switch (c.UserStatus)

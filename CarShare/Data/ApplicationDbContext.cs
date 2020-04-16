@@ -8,6 +8,7 @@ using CarShare.Models;
 
 namespace CarShare.Data
 {
+    // Builds the data for the CarShareUser database which the AdminController reads from
     public class ApplicationDbContext : IdentityDbContext<CarShareUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

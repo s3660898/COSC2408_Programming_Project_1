@@ -10,6 +10,7 @@ using CarShare.Identity.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
+// Creates the controller for the Admin side of the program, and the database the UserList will read from
 namespace CarShare.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -21,12 +22,12 @@ namespace CarShare.Controllers
         {
             _db = db;
         }
-
+        // Returns the Admin View
         public IActionResult Index()
         {
             return View();
         }
-
+        // Initiates the UserManagement page and sets the data to be displayed
         public IActionResult UserManagement()
         {
             // getting ordered list from db
@@ -35,13 +36,14 @@ namespace CarShare.Controllers
             // putting relevant data in ViewBag
             ViewBag.UserList = new List<UserViewModel>();
             foreach (CarShareUser c in UserList)
+            // Adds the UserList data in a new UserViewModel; Id, Email, Address, UserStatus
             {
                 ViewBag.UserList.Add(new UserViewModel() { Id = c.Id, Email = c.Email, Address = c.Address, UserStatus = c.UserStatus });
             }
-
+            // Returns the UserManagement page view
             return View();
         }
-
+        // Initiates ViewUser via their numerical Id's and returns the View
         public IActionResult ViewUser(string Id)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == Id);
