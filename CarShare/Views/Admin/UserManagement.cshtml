@@ -17,7 +17,7 @@
     {
         @switch (c.UserStatus)
         {
-            case UserStatus.Valid:
+            case UserStatus.AwaitingHire:
                 <tr class="click-row" data-href="ViewUser?Id=@c.Id" style="background-color:#c6ffbc">
                     <td class="td_cust">@c.Email</td>
                     <td class="td_cust">@c.Address</td>

@@ -9,7 +9,7 @@ namespace CarShare.Identity.Data
     public enum UserStatus
     {
         CurrentlyHiring,
-        Valid,
+        AwaitingHire,
         InvalidEmail,
         Banned
     }
