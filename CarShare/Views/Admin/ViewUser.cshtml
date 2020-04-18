@@ -4,7 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ViewUser</h1>
+<h1>View User</h1>
+<div align="right" style="margin-bottom: 0.5rem">
+    <a id="editButton" class="btn btn-primary" style="margin-right: 1rem" asp-controller="Admin" asp-action="EditUserDetails">Edit User Details</a>
+    <a id="deleteButton" class="btn btn-primary" href="#">Delete User</a>
+</div>
 @*Creates the ViewUser table for each user, visible when the administrator clicks the "View" button in the User Management table*@
 <table class="table">
     <tr>
