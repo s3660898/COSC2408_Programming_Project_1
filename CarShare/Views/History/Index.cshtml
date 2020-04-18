@@ -1,32 +1,54 @@
-﻿@model CarShare.Models.CarHistory
+﻿@using X.PagedList
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+
+@model IPagedList<CarHistory>
 @{
     ViewData["Title"] = "ViewCarHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>View Car History</h1>
-<form asp-action="Search">
-    <div><input type="text" name="users"> <input type="Submit" value="Search"> </div>
+<form asp-action="Index">
+    <!--<div><input type="text" name="userId" value=@ViewBag.userId> <input type="Submit" value="Search"> </div> -->
+    
+    <label > Car Id:  </label>
+    <select name="carId" id="carId" style="width: 200px;">
+        <option value="">Choose Car ID: </option>
+        <option value="1">1 </option>
+        <option value="2">2 </option>
+    </select>
+    &nbsp;
+    <input type="Submit" value="Search">
 </form>
 
+
+<div>
+    <h1> History </h1>
+
     <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x[0].Id) </th>
+            <th>@Html.DisplayNameFor(x => x[0].HireTime) </th>
+        </tr>
 
 
-        @foreach (var CH in ViewBag.CarHistoryList)
+        @foreach (var History in Model)
         {
             <tr>
-                <td>Id:</td>
-                <td>@CH.Id</td>
-            </tr>
-            <tr>
-                <td>HireTime:</td>
-            </tr>
-            <tr>
-                <td>HireDuration:</td>
-            </tr>
-            <tr>
-                <td>ReturnedTime:</td>
+                <td>@Html.DisplayFor(x => History.Id) </td>
+                <td>@Html.DisplayFor(x => History.HireTime) </td>
             </tr>
         }
     </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+
+</div>
 
