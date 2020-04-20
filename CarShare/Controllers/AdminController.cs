@@ -36,6 +36,8 @@ namespace CarShare.Controllers
             // putting relevant data in ViewBag
             ViewBag.UserList = new List<UserViewModel>();
             foreach (CarShareUser c in UserList)
+
+
             // Adds the UserList data in a new UserViewModel; Id, Email, Address, UserStatus
             {
                 ViewBag.UserList.Add(new UserViewModel() { Id = c.Id, Email = c.Email, Address = c.Address, UserStatus = c.UserStatus });
@@ -47,8 +49,27 @@ namespace CarShare.Controllers
         public IActionResult ViewUser(string Id)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == Id);
-
             return View(user);
+        }
+        
+
+        public IActionResult EditUserDetails(string Id)
+        {
+            var user = _db.Users.SingleOrDefault(c => c.Id == Id);
+            return View(user);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+
+        public IActionResult EditUserDetails(CarShareUser model)
+        {
+            var user = _db.Users.SingleOrDefault(c => c.Id == model.Id);
+            user.Email = model.Email;
+            user.Address = model.Address;
+            user.UserStatus = model.UserStatus;
+
+            _db.Users.Update(user);
+            _db.SaveChanges();
+            return RedirectToAction("UserManagement", "Admin");
         }
     }
 }

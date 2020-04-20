@@ -1,4 +1,5 @@
 ﻿@model CarShare.Identity.Data.CarShareUser
+@using CarShare.Identity.Data;
 @{
     ViewData["Title"] = "Edit User Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,8 +10,17 @@
 @*Input boxes allow for the user's data, Email, Address and UserStatus, to be changed*@
 @*Currently though, this will only CREATE A NEW USER. The data needs to overwrite: Possible useful link below
     https://docs.microsoft.com/en-us/aspnet/core/mvc/views/partial?view=aspnetcore-3.1*@
-<form asp-action="EditUser" asp-controller="Admin" autocomplete="off">
+<form asp-action="EditUserDetails" asp-controller="Admin" autocomplete="off">
     <table class="table">
+        <tr>
+            <td>
+                <label asp-for="Id"></label>
+            </td>
+            <td>
+                @*Reseach - inserting the Id from the model into the submitted user model*@
+                <input asp-for="Id" class="form-control" />
+            </td>
+        </tr>
         <tr>
             <td>
                 <label asp-for="Email"></label>
@@ -32,10 +42,10 @@
                 <label asp-for="UserStatus"></label>
             </td>
             <td>
-                @*<select asp-for="UserStatus" asp-items="Html.GetEnumSelectList<UserStatus>()"></select>*@
+                <select asp-for="UserStatus" asp-items="Html.GetEnumSelectList<UserStatus>()"></select>
             </td>
         </tr>
     </table>
 
-    <button type="submit" class="btn btn-primary" href="/Admin/UserManagement">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
