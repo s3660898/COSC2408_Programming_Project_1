@@ -8,8 +8,8 @@ namespace CarShare.Identity.Data
 {
     public enum UserStatus
     {
-        CurrentlyHiring,
         AwaitingHire,
+        CurrentlyHiring,
         InvalidEmail,
         Banned
     }

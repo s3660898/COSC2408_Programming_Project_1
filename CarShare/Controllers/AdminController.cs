@@ -51,7 +51,7 @@ namespace CarShare.Controllers
             var user = _db.Users.SingleOrDefault(c => c.Id == Id);
             return View(user);
         }
-        
+
 
         public IActionResult EditUserDetails(string Id)
         {
@@ -70,6 +70,25 @@ namespace CarShare.Controllers
             _db.Users.Update(user);
             _db.SaveChanges();
             return RedirectToAction("UserManagement", "Admin");
-        }    
+        }
+
+        public IActionResult DeleteUser(string Id)
+        {
+            var user = _db.Users.SingleOrDefault(c => c.Id == Id);
+            return View(user);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+
+        public IActionResult DeleteUser(CarShareUser model)
+        {
+            var user = _db.Users.SingleOrDefault(c => c.Id == model.Id);
+            user.Email = model.Email;
+            user.Address = model.Address;
+            user.UserStatus = model.UserStatus;
+
+            _db.Users.Remove(user);
+            _db.SaveChanges();
+            return RedirectToAction("UserManagement", "Admin");
+        }
     }
 }
