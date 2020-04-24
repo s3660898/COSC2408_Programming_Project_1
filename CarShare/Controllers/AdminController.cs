@@ -70,6 +70,6 @@ namespace CarShare.Controllers
             _db.Users.Update(user);
             _db.SaveChanges();
             return RedirectToAction("UserManagement", "Admin");
-        }
+        }    
     }
 }
