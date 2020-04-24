@@ -6,6 +6,8 @@ using CarShare.Data;
 using CarShare.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,11 +43,35 @@ namespace CarShare.Controllers
             return View();
         }
 
-        public IActionResult ViewCar(int Id)
+        public async Task<IActionResult> ViewCar(int Id)
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
 
+
+            var cars = _db.Cars.OrderBy(x => x.Id).ToList();
+
+            const int pageSize = 50;
+
+            var carHistory = _db.CarHistory.Where(a => a.CarId == Id).OrderBy(a => a.Id).ToList();
+
+            ViewBag.carHistory = carHistory;
+
             return View(car);
+
+            /*
+            ViewBag.car = car;
+
+            if (Id == null)
+            {
+                var pagedList = await _db.CarHistory.Where(a => a.CarId == 1).OrderBy(a => a.Id).ToPagedListAsync(page, pageSize);
+                return View(pagedList);
+            }
+            else
+            {
+                var pagedList1 = await _db.CarHistory.Where(a => a.CarId == Id).OrderBy(a => a.Id).ToPagedListAsync(page, pageSize);
+                return View(pagedList1);
+            }
+            */
         }
 
         public IActionResult AddCar()
