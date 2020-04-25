@@ -95,5 +95,21 @@ namespace CarShare.Controllers
 
             return RedirectToAction("FleetManagement", "Admin");
         }
+
+        public IActionResult DeleteCarConfirmation(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+            return View(car);
+        }
+
+        public IActionResult DeleteCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+
+            _db.Cars.Remove(car);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
+        }
     }
 }
