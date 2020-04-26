@@ -72,16 +72,16 @@ namespace CarShare.Controllers
             return RedirectToAction("UserManagement", "Admin");
         }
 
-        public IActionResult DeleteUser(string Id)
+        public IActionResult ConfirmDeleteUser(string Id)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == Id);
             return View(user);
         }
         [HttpPost, ValidateAntiForgeryToken]
 
-        public IActionResult DeleteUser(CarShareUser model)
+        public IActionResult DeleteUser(string Id)
         {
-            var user = _db.Users.SingleOrDefault(c => c.Id == model.Id);
+            var user = _db.Users.SingleOrDefault(c => c.Id == Id);
 
             _db.Users.Remove(user);
             _db.SaveChanges();
