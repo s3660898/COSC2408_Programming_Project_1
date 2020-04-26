@@ -63,8 +63,10 @@ namespace CarShare.Controllers
         public IActionResult EditUserDetails(CarShareUser model)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == model.Id);
-            user.Email = model.Email;
-            user.Address = model.Address;
+            if (model.Email != null)
+                user.Email = model.Email;
+            if (model.Address != null)
+                user.Address = model.Address;
             user.UserStatus = model.UserStatus;
 
             _db.Users.Update(user);

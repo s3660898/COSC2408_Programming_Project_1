@@ -9,22 +9,14 @@
 
 @*Input boxes allow for the user's data, Email, Address and UserStatus, to be changed*@
 <form asp-action="EditUserDetails" asp-controller="Admin" autocomplete="off">
+    @Html.HiddenFor(c => c.Id)
     <table class="table">
-        <tr>
-            <td>
-                <label asp-for="Id"></label>
-            </td>
-            <td>
-                @*Reseach - inserting the Id from the model into the submitted user model*@
-                <input asp-for="Id" class="form-control" />
-            </td>
-        </tr>
         <tr>
             <td>
                 <label asp-for="Email"></label>
             </td>
             <td>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" placeholder="@Model.Email" class="form-control" />
             </td>
         </tr>
         <tr>
@@ -32,7 +24,7 @@
                 <label asp-for="Address"></label>
             </td>
             <td>
-                <input asp-for="Address" class="form-control" />
+                <input asp-for="Address" placeholder="@Model.Address" class="form-control" />
             </td>
         </tr>
         <tr>
@@ -40,7 +32,7 @@
                 <label asp-for="UserStatus"></label>
             </td>
             <td>
-                <select asp-for="UserStatus" asp-items="Html.GetEnumSelectList<UserStatus>()"></select>
+                <select asp-for="UserStatus" class="form-control" asp-items="Html.GetEnumSelectList<UserStatus>()"></select>
             </td>
         </tr>
     </table>
