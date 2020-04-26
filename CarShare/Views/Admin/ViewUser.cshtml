@@ -8,34 +8,7 @@
 <div align="right" style="margin-bottom: 0.5rem">
     @*Buttons that enable the link to the EditUserDetails page and the Delete User Message*@
     <a id="editButton" class="btn btn-primary" style="margin-right: 1rem" href="/Admin/EditUserDetails">Edit User Details</a>
-    <a id="deleteButton" class="btn btn-primary" href="/Admin/DeleteUser">Delete User</a>
-
-    @*research modal - use a new page for redirect - https://www.c-sharpcorner.com/blogs/bootstrap-modal-popup-using-asp-net-mvc*@
-    @*<button id="deleteButton" type="button" class="btn btn-primary">Delete User</button>
-    <div class="modal fade" tabindex="-1" id="loginModal" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">ALERT! Are you sure you want to delete this user?</h4>
-                    <div class="modal-body">
-                        <button type="button" id="yesDelete" class="btn btn-primary">YES</button>
-                        <button type="button" id="noDelete" class="btn btn-primary">NO</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#deleteButton").click(function () {
-                $("#loginModal").modal('show');
-            });
-
-            $("#noDelete").click(function () {
-                $("#loginModal").modal('hide');
-            });
-        });
-    </script>*@
+    <a id="deleteButton" class="btn btn-danger" href="/Admin/DeleteUser?Id=@Model.Id">Delete User</a>
 </div>
 
 @*Creates the ViewUser table for each user, visible when the administrator clicks the "View" button in the User Management table*@
