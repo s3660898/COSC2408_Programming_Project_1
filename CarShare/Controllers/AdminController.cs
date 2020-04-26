@@ -82,9 +82,6 @@ namespace CarShare.Controllers
         public IActionResult DeleteUser(CarShareUser model)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == model.Id);
-            user.Email = model.Email;
-            user.Address = model.Address;
-            user.UserStatus = model.UserStatus;
 
             _db.Users.Remove(user);
             _db.SaveChanges();
