@@ -17,6 +17,7 @@
                     if (User.IsInRole("Admin"))
                     {
                         <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">CarShare</a>
+                        
                     }
                     else
                     {
@@ -56,6 +57,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Userhistory" asp-action="Index">History</a>
+                                </li>
                             }
 
                         }
@@ -64,6 +69,8 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
+
+
                         }
                             @if (User.Identity.IsAuthenticated == false)
                             {
@@ -72,8 +79,8 @@
                                 </li>
                             }
                         </ul>
+                    </div>
                 </div>
-            </div>
         </nav>
     </header>
     <div class="container">
