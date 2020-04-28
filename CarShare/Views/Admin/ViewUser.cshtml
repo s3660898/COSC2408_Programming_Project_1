@@ -1,0 +1,28 @@
+﻿@model CarShare.Identity.Data.CarShareUser
+@{
+    ViewData["Title"] = "ViewUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View User</h1>
+<div align="right" style="margin-bottom: 0.5rem">
+    @*Buttons that enable the link to the EditUserDetails page and the Delete User Message*@
+    <a id="editButton" class="btn btn-primary" style="margin-right: 1rem" href="/Admin/EditUserDetails?Id=@Model.Id">Edit User Details</a>
+    <a id="deleteButton" class="btn btn-danger" href="/Admin/DeleteUser?Id=@Model.Id">Delete User</a>
+</div>
+
+@*Creates the ViewUser table for each user, visible when the administrator clicks the "View" button in the User Management table*@
+<table class="table">
+    <tr>
+        <td>Email:</td>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <td>User Status:</td>
+        <td>@Model.UserStatus</td>
+    </tr>
+</table>
