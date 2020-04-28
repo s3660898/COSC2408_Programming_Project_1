@@ -1,0 +1,64 @@
+﻿@using X.PagedList
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+
+@model IPagedList<CarHistory>
+@{
+    ViewData["Title"] = "ViewCarHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View Car History</h1>
+<form asp-action="Index">
+    <!--<div><input type="text" name="userId" value=@ViewBag.userId> <input type="Submit" value="Search"> </div> -->
+    
+    <label > Car Id:  </label>
+    <select name="carId" id="carId" style="width: 200px;">
+        <option value="">Choose Car ID: </option>
+        <option value="1">1 </option>
+        <option value="2">2 </option>
+    </select>
+    &nbsp;
+    <input type="Submit" value="Search">
+</form>
+
+
+<div>
+    <h1> History </h1>
+
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x[0].Id) </th>
+            <th>@Html.DisplayNameFor(x => x[0].HireTime) </th>
+            <th>@Html.DisplayNameFor(x => x[0].HireDuration) </th>
+            <th>@Html.DisplayNameFor(x => x[0].InitialLatitude) </th>
+            <th>@Html.DisplayNameFor(x => x[0].InitialLongitude) </th>
+            <th>@Html.DisplayNameFor(x => x[0].ReturnedLatitude) </th>
+            <th>@Html.DisplayNameFor(x => x[0].ReturnedLongitude) </th>
+        </tr>
+
+
+        @foreach (var History in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(x => History.Id) </td>
+                <td>@Html.DisplayFor(x => History.HireTime) </td>
+                <td>@Html.DisplayFor(x => History.HireDuration) </td>
+                <td>@Html.DisplayFor(x => History.InitialLatitude) </td>
+                <td>@Html.DisplayFor(x => History.InitialLongitude) </td>
+                <td>@Html.DisplayFor(x => History.ReturnedLatitude) </td>
+                <td>@Html.DisplayFor(x => History.ReturnedLongitude) </td>
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+
+</div>
+
