@@ -84,8 +84,10 @@ namespace CarShare.Controllers
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == model.Id);
 
-            car.Description = model.Description;
-            car.Registration = model.Registration;
+            if(model.Description != null)
+                car.Description = model.Description;
+            if(model.Registration != null)
+                car.Registration = model.Registration;
             car.Status = model.Status;
             car.Category = model.Category;
             car.NumSeats = model.NumSeats;
