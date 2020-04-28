@@ -31,5 +31,7 @@ namespace CarShare.Models
         public int NumSeats { get; set; }
         public float Longitude { get; set; }
         public float Latitude { get; set; }
+
+        public ICollection<CarHistory> CarHistories { get; set; }
     }
 }

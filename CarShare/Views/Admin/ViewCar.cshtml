@@ -34,3 +34,41 @@
         <td>@Model.Longitude, @Model.Latitude</td>
     </tr>
 </table>
+
+
+<div>
+    <h1> History </h1>
+
+    <table class="table">
+        <tr>
+            
+            <th>Id </th>
+            <th>HireTime </th>
+            <th>HireDuration </th>
+            <th>InitialLatitude </th>
+            <th>InitialLongitude </th>
+            <th>ReturnedLatitude </th>
+            <th>ReturnedLongitude </th>
+        </tr>
+
+
+        @foreach (var History in @ViewBag.carHistory)
+        {
+            <tr>
+                
+                <td>@History.Id</td>
+                <td>@History.HireTime </td>
+                <td>@History.HireDuration </td>
+                <td>@History.InitialLatitude </td>
+                <td>@History.InitialLongitude </td>
+                <td>@History.ReturnedLatitude </td>
+                <td>@History.ReturnedLongitude </td>
+            </tr>
+        }
+    </table>
+
+    
+
+</div>
+
+
