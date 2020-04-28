@@ -135,13 +135,55 @@ namespace CarShare.Controllers
             {
                 Registration = model.Registration,
                 Description = model.Description,
+                Status = model.Status,
                 Category = model.Category,
-                Status = CarStatus.Available,
+                NumSeats = model.NumSeats,
                 Latitude = 0,
                 Longitude = 0
             };
 
             _db.Cars.Add(c);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
+        }
+
+        public IActionResult EditCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+            return View(car);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditCar(Car model)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == model.Id);
+
+            if(model.Description != null)
+                car.Description = model.Description;
+            if(model.Registration != null)
+                car.Registration = model.Registration;
+            car.Status = model.Status;
+            car.Category = model.Category;
+            car.NumSeats = model.NumSeats;
+
+            _db.Cars.Update(car);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
+        }
+
+        public IActionResult DeleteCarConfirmation(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+            return View(car);
+        }
+
+        public IActionResult DeleteCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+
+            _db.Cars.Remove(car);
             _db.SaveChanges();
 
             return RedirectToAction("FleetManagement", "Admin");
