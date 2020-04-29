@@ -20,5 +20,7 @@ namespace CarShare.Identity.Data
         public ICollection<CarHistory> CarHistories { get; set; }
         public string Address { get; set; }
         public UserStatus UserStatus { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
