@@ -102,7 +102,7 @@ namespace CarShare.Controllers
             ViewBag.CarList = new List<CarFleetViewModel>();
             foreach (Car c in CarList)
             {
-                ViewBag.CarList.Add(new CarFleetViewModel() {Id=c.Id, Registration = c.Registration, Description = c.Description, Status = c.Status});
+                ViewBag.CarList.Add(new CarFleetViewModel() { Id = c.Id, Registration = c.Registration, Description = c.Description, Status = c.Status });
             }
 
             return View();
@@ -170,9 +170,9 @@ namespace CarShare.Controllers
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == model.Id);
 
-            if(model.Description != null)
+            if (model.Description != null)
                 car.Description = model.Description;
-            if(model.Registration != null)
+            if (model.Registration != null)
                 car.Registration = model.Registration;
             car.Status = model.Status;
             car.Category = model.Category;
@@ -198,6 +198,10 @@ namespace CarShare.Controllers
             _db.SaveChanges();
 
             return RedirectToAction("FleetManagement", "Admin");
+        }
+        public IActionResult ParkingLotManagement()
+        {
+            return View();
         }
     }
 }
