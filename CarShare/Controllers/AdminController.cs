@@ -112,13 +112,24 @@ namespace CarShare.Controllers
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
 
-            var cars = _db.Cars.OrderBy(x => x.Id).ToList();
+            var carHistories = _db.CarHistory.Where(a => a.CarId == Id).OrderBy(a => a.Id).ToList();
+            var users = _db.Users.ToList<CarShareUser>();
 
-            const int pageSize = 50;
+            var query = from user in users
+                        join history in carHistories on user equals history.User
+                        select new CarHistoryAdminViewModel()
+                        {
+                            Email = user.Email,
+                            HireTime = history.HireTime,
+                            HireDuration = history.HireDuration,
+                            InitialLongitude = history.InitialLongitude,
+                            InitialLatitude = history.InitialLatitude,
+                            ReturnedLongitude = history.ReturnedLongitude,
+                            ReturnedLatitude = history.ReturnedLatitude,
+                            Status = history.Status
+                        };
 
-            var carHistory = _db.CarHistory.Where(a => a.CarId == Id).OrderBy(a => a.Id).ToList();
-
-            ViewBag.carHistory = carHistory;
+            ViewBag.carHistory = query.ToList();
 
             return View(car);
         }
