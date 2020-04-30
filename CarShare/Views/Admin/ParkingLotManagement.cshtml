@@ -14,4 +14,14 @@
         <th>Description</th>
         <th></th>
     </tr>
-
+    @foreach (var c in ViewBag.UserList)
+    {
+        <tr class="click-row" data-href="ViewParkingLot?Id=@c.Id">
+            <td class="td_cust">@c.Latitude</td>
+            <td class="td_cust">@c.Longitude</td>
+            <td class="td_cust">@c.Address</td>
+            <td class="td_cust">@c.Description</td>
+            <td class="td_cust"><a href="ViewParkingLot?Id=@c.Id">View</a></td>
+        </tr>
+    }
+</table>
