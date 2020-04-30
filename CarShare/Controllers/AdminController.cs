@@ -201,7 +201,26 @@ namespace CarShare.Controllers
         }
         public IActionResult ParkingLotManagement()
         {
+            // getting ordered list from db
+            var ParkingLotList = _db.ParkingLots.ToList();
+
+            // putting relevant data in ParkingLot ViewBag
+            ViewBag.ParkingLotList = new List<ParkingLot>();
+            foreach (ParkingLot c in ParkingLotList)
+
+
+            // Adds the ParkingLotList data in a new ParkingLot Model; Id, Latitude, Longitude, Address, Description
+            {
+                ViewBag.ParkingLotList.Add(new ParkingLot() { Id = c.Id, Latitude = c.Latitude, Longitude = c.Longitude, Address = c.Address, Description = c.Description });
+            }
+            // Returns the ParkingLotManagement page view
             return View();
+        }
+        // Initiates ViewParkingLot via their numerical Id's and returns the View
+        public IActionResult ViewParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+            return View(ParkingLot);
         }
     }
 }

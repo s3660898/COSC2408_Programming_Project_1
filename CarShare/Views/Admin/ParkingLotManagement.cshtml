@@ -4,7 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Parking Lot Management</h1>
+<div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
+    <h1>Parking Lot Management</h1>
+    <a class="btn btn-primary" href="/Admin/AddParkingLot">Add ParkingLot</a>
+</div>
 
 <table class="table">
     <tr>
@@ -14,7 +17,8 @@
         <th>Description</th>
         <th></th>
     </tr>
-    @foreach (var c in ViewBag.UserList)
+    @*Creates the ViewBag for the ParkingLotList, allowing for all available parking lots to be shown*@
+    @foreach (var c in ViewBag.ParkingLotList)
     {
         <tr class="click-row" data-href="ViewParkingLot?Id=@c.Id">
             <td class="td_cust">@c.Latitude</td>

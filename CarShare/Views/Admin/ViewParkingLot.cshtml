@@ -1,7 +1,34 @@
-﻿
+﻿@model CarShare.Models.ParkingLot
 @{
     ViewData["Title"] = "ViewParkingLot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ViewParkingLot</h1>
+<h1>View Parking Lot</h1>
 
+<h1>View User</h1>
+<div align="right" style="margin-bottom: 0.5rem">
+    @*Buttons that enable the link to the EditParkingLot page and the DeleteParkingLot Page*@
+    <a id="editButton" class="btn btn-primary" style="margin-right: 1rem" href="/Admin/EditParkingLot?Id=@Model.Id">Edit Parking Lot</a>
+    <a id="deleteButton" class="btn btn-danger" href="/Admin/DeleteParkingLot?Id=@Model.Id">Delete Parking Lot</a>
+</div>
+
+@*Creates the ViewUser table for each Parking Lot, visible when the administrator clicks the "View" button in the Parking Lot Management table*@
+<table class="table">
+    <tr>
+        <td>Latitude:</td>
+        <td>@Model.Latitude</td>
+    </tr>
+    <tr>
+        <td>Longitude:</td>
+        <td>@Model.Longitude</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td>@Model.Description</td>
+    </tr>
+</table>
