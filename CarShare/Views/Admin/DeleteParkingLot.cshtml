@@ -1,0 +1,14 @@
+﻿@model CarShare.Models.ParkingLot
+@{
+    ViewData["Title"] = "DeleteParkingLot";
+}
+
+<h1>Delete Parking Lot</h1>
+
+<p>ALERT! Are you sure you want to delete this Parking Lot?</p>
+
+<div align="center" style="margin-top: 0.5rem">
+    @*Buttons that allow an admin to delete a Parking Lot or cancel the action and return to the ParkingLotManagement page*@
+    <a id="yesDelete" class="btn btn-danger" style="margin-right: 5rem" href="#">YES</a>
+    <a id="noDelete" class="btn btn-primary" href="/Admin/ParkingLotManagement">NO</a>
+</div>

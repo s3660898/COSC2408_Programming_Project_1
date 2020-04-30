@@ -9,7 +9,7 @@
 
 @*Input boxes allow for the user's data, Email, Address and UserStatus, to be changed*@
 <form asp-action="EditUserDetails" asp-controller="Admin" autocomplete="off">
-    @Html.HiddenFor(c => c.Id)
+    @Html.HiddenFor(c => c.Id) @*The Id is hidden, so it does not have to be entered manually by the Admin*@
     <table class="table">
         <tr>
             <td>

@@ -222,5 +222,60 @@ namespace CarShare.Controllers
             var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
             return View(ParkingLot);
         }
+        /* Initiates the AddParkingLot page, and allows for Parking Lot data, Latitude, Longitude, Address and Description, to be entered,
+        adds the data to the ParkingLots database and then returns the Admin to the ParkingLotManagementPage*/
+        public IActionResult AddParkingLot()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddParkingLot(ParkingLot model)
+        {
+            ParkingLot c = new ParkingLot()
+            {
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                Address = model.Address,
+                Description = model.Description,
+                
+            };
+            _db.ParkingLots.Add(c);
+            _db.SaveChanges();
+
+            return RedirectToAction("ParkingLotManagement", "Admin");
+        }
+        // Initiates the EditParkingLot page, and allows for the ParkingLot data to be displayed
+        public IActionResult EditParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+            return View(ParkingLot);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        /* Initiates the AddParkingLot page, and allows for Parking Lot data, Latitude, Longitude, Address and Description, to be entered,
+        adds the data to the ParkingLots database and then returns the Admin to the ParkingLotManagementPage*/
+        public IActionResult EditParkingLot(ParkingLot model)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == model.Id);
+            ParkingLot.Latitude = model.Latitude;
+            ParkingLot.Longitude = model.Longitude;
+            if (model.Address != null)
+                ParkingLot.Address = model.Address;
+            if (model.Description != null)
+                ParkingLot.Description = model.Description;
+
+            _db.ParkingLots.Update(ParkingLot);
+            _db.SaveChanges();
+            return RedirectToAction("ParkingLotManagement", "Admin");
+        }
+
+
+        // Initiates the DeleteParkingLot page, and allows for the ParkingLot data to be displayed
+        public IActionResult DeleteParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+            return View(ParkingLot);
+        }
     }
 }
