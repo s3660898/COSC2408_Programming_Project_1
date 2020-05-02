@@ -15,19 +15,18 @@
         <th>NumSeats </th>
         <th>Longitude </th>
         <th>Latitude </th>
-        <th><a href="">Hire </a> </th>
+        <th><a href="Javascript:void(0);">Hire </a> </th>
     </tr>
 
     @foreach (var Cars in ViewBag.cars)
     {
         <tr>
-            <td>@Cars.Id </td>
             <td>@Cars.Registration </td>
             <td>@Cars.Description </td>
             <td>@Cars.NumSeats </td>
             <td>@Cars.Longitude </td>
             <td>@Cars.Latitude </td>
-            <td><a href="Javascript:void(0)"> Hire</a> </td>
+            <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id" > Hire</a> </td>
         </tr>
     }
 </table>

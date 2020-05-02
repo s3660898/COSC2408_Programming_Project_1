@@ -1,0 +1,71 @@
+﻿@model CarShare.Models.Car;
+@{
+    ViewData["Title"] = "AddCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Car hire</h1>
+
+<form asp-controller="Carhiredetails" asp-action="Addhire" autocomplete="off">
+    <table class="table">
+        @foreach (var Cars in ViewBag.car)
+        {
+            <tr>
+                <td>
+                    <label> Hire</label>
+                </td>
+                <td>
+                    <input asp-for="Registration" placeholder="Registration" class="form-control" readonly value=@Cars.Registration />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>When</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="When" id="datepicker" name="datepicker" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input placeholder="Whentime" id="timepicker" name="timepicker" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Category">Until</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Until" id="datepicker1" name="datepicker1" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input placeholder="untiltime" id="timepicker1" name="timepicker1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Pick up</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Pick up" class="form-control" readonly value="@Cars.Longitude,@Cars.Latitude"  />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Drop off</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Drop off" class="form-control" />
+                </td>
+            </tr>
+        }
+        </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    $( document ).ready(function() {
+         $("#datepicker").datepicker();
+         $("#timepicker").timepicker({});
+         $("#datepicker1").datepicker();
+         $('#timepicker1').timepicker({});
+   });
+
+  </script>
