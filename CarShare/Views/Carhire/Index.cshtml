@@ -18,4 +18,16 @@
         <th><a href="">Hire </a> </th>
     </tr>
 
+    @foreach (var Cars in ViewBag.cars)
+    {
+        <tr>
+            <td>@Cars.Id </td>
+            <td>@Cars.Registration </td>
+            <td>@Cars.Description </td>
+            <td>@Cars.NumSeats </td>
+            <td>@Cars.Longitude </td>
+            <td>@Cars.Latitude </td>
+            <td><a href="Javascript:void(0)"> Hire</a> </td>
+        </tr>
+    }
 </table>
