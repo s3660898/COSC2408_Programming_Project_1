@@ -6,16 +6,20 @@
 
 <h1>Car</h1>
 
+
+@{
+    // Here the initialization happens outside of the loop
+    var i = 0;
+}
+
 <table class="table">
     <tr>
         <th>Registration </th>
         <th>Description </th>
-        <th>Status </th>
-        <th>Category</th>
         <th>NumSeats </th>
-        <th>Longitude </th>
-        <th>Latitude </th>
-        <th><a href="Javascript:void(0);">Hire </a> </th>
+        <th>Distance </th>
+        <th> </th>
+
     </tr>
 
     @foreach (var Cars in ViewBag.cars)
@@ -24,9 +28,9 @@
             <td>@Cars.Registration </td>
             <td>@Cars.Description </td>
             <td>@Cars.NumSeats </td>
-            <td>@Cars.Longitude </td>
-            <td>@Cars.Latitude </td>
-            <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id" > Hire</a> </td>
+            <td>@ViewBag.distance[i] </td>
+            <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id"> Hire</a> </td>
         </tr>
+        i++;
     }
 </table>

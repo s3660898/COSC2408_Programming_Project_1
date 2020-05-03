@@ -6,7 +6,7 @@
 
 <h1>Car hire</h1>
 
-<form asp-controller="Carhiredetails" asp-action="Addhire" autocomplete="off">
+<form asp-controller="Carhiredetails" asp-action="Addhire" autocomplete="off" >
     <table class="table">
         @foreach (var Cars in ViewBag.car)
         {
@@ -15,6 +15,7 @@
                     <label> Hire</label>
                 </td>
                 <td>
+                    <input type="hidden" name="id" value="@Cars.Id">
                     <input asp-for="Registration" placeholder="Registration" class="form-control" readonly value=@Cars.Registration />
                 </td>
             </tr>
@@ -51,7 +52,7 @@
                     <label>Drop off</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Drop off" class="form-control" />
+                    <input type="text" placeholder="Drop off" class="form-control" name="drop_off"/>
                 </td>
             </tr>
         }
@@ -62,10 +63,10 @@
 
 <script>
     $( document ).ready(function() {
-         $("#datepicker").datepicker();
-         $("#timepicker").timepicker({});
-         $("#datepicker1").datepicker();
-         $('#timepicker1').timepicker({});
+         $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });;
+         $("#timepicker").timepicker({timeFormat: 'h:mm:ss p',});
+         $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });;
+         $('#timepicker1').timepicker({timeFormat: 'h:mm:ss p',});
    });
 
   </script>
