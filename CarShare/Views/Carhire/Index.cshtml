@@ -7,7 +7,10 @@
 <h1>Car</h1>
 
 
-
+@{
+    // Here the initialization happens outside of the loop
+    var i = 0;
+}
 
 <table class="table">
     <tr>
@@ -25,8 +28,9 @@
             <td>@Cars.Registration </td>
             <td>@Cars.Description </td>
             <td>@Cars.NumSeats </td>
-            <td>@ViewBag.distance[0] </td>
+            <td>@ViewBag.distance[i] </td>
             <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id"> Hire</a> </td>
         </tr>
+        i++;
     }
 </table>
