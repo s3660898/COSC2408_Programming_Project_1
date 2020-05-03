@@ -1,4 +1,4 @@
-﻿@model CarShare.Models.Car;
+@model CarShare.Models.Car;
 @{
     ViewData["Title"] = "AddCarHire";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,16 +6,17 @@
 
 <h1>Car</h1>
 
+
+
+
 <table class="table">
     <tr>
         <th>Registration </th>
         <th>Description </th>
-        <th>Status </th>
-        <th>Category</th>
         <th>NumSeats </th>
-        <th>Longitude </th>
-        <th>Latitude </th>
-        <th><a href="Javascript:void(0);">Hire </a> </th>
+        <th>Distance </th>
+        <th> </th>
+
     </tr>
 
     @foreach (var Cars in ViewBag.cars)
@@ -24,9 +25,8 @@
             <td>@Cars.Registration </td>
             <td>@Cars.Description </td>
             <td>@Cars.NumSeats </td>
-            <td>@Cars.Longitude </td>
-            <td>@Cars.Latitude </td>
-            <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id" > Hire</a> </td>
+            <td>@ViewBag.distance[0] </td>
+            <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id"> Hire</a> </td>
         </tr>
     }
 </table>
