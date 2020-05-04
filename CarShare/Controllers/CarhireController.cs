@@ -35,7 +35,6 @@ namespace CarShare.Controllers
             //37.8098° S, 144.9652° E central library
 
             //37.7431, 145.0081 preston
-            //Console.WriteLine("Total Cars");
 
             Console.WriteLine("Total Cars");
 
