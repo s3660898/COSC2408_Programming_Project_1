@@ -6,7 +6,7 @@
 
 <h1>Car hire</h1>
 
-<form asp-controller="Carhiredetails" asp-action="Addhire" autocomplete="off" >
+<form asp-controller="Carhiredetails" asp-action="AddhireConfirmation" autocomplete="off" name="frmcarhire" id="frmcarhire" onsubmit="return saveCarHire();">
     <table class="table">
         @foreach (var Cars in ViewBag.car)
         {
@@ -44,6 +44,7 @@
                     <label>Pick up</label>
                 </td>
                 <td>
+                    <input type="hidden" name="pickup_coor" value="@Cars.Longitude,@Cars.Latitude">
                     <input type="text" placeholder="Pick up" class="form-control" readonly value="@Cars.Longitude,@Cars.Latitude"  />
                 </td>
             </tr>
@@ -52,13 +53,13 @@
                     <label>Drop off</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Drop off" class="form-control" name="drop_off"/>
+                    <input type="text" placeholder="Drop off" class="form-control" name="drop_off" id="drop_off"/>
                 </td>
             </tr>
         }
         </table>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
 
 <script>
@@ -69,4 +70,61 @@
          $('#timepicker1').timepicker({timeFormat: 'h:mm:ss p',});
    });
 
+    //onSubmit="return saveCarHire()"
+    function saveCarHire() {
+        //Validation goes here   'background-color': '#fff'
+        var ERROR_FLAG = 0;
+        if ($('#datepicker').val() == "") {
+            $('#datepicker').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#datepicker').css({'border-color': 'white'});
+        }
+
+        if ($('#timepicker').val() == "") {
+            $('#timepicker').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#timepicker').css({'border-color': 'white'});
+        }
+
+
+        if ($('#datepicker1').val() == "") {
+            $('#datepicker1').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#datepicker1').css({'border-color': 'white'});
+        }
+
+        if ($('#timepicker1').val() == "") {
+            $('#timepicker1').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#timepicker1').css({'border-color': 'white'});
+        }
+
+
+        if ($('#drop_off').val() == "") {
+            $('#drop_off').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#drop_off').css({'border-color': 'white'});
+        }
+
+
+        if (ERROR_FLAG > 0) return false;
+
+
+        var conf = confirm("Are you sure you want hire?");
+
+
+        if (conf) {
+            return true;
+        }
+    }
   </script>

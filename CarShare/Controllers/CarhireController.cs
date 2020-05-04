@@ -33,12 +33,11 @@ namespace CarShare.Controllers
             var cars = _db.Cars.OrderBy(x => x.Id).ToList();
             //37.8290° S, 144.9570° E Southebank
             //37.8098° S, 144.9652° E central library
-<<<<<<< HEAD
+
             //37.7431, 145.0081 preston
             //Console.WriteLine("Total Cars");
-=======
+
             Console.WriteLine("Total Cars");
->>>>>>> 95b8eb8b3be713384c77911e3e569c7b6ab8c163
 
             int totalRecord =  cars.Count();
             Double[] Totaldistance = new Double[totalRecord]; ;
@@ -61,6 +60,7 @@ namespace CarShare.Controllers
         }
 
 
+
         public static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
             double rlat1 = Math.PI * lat1 / 180;
@@ -77,14 +77,14 @@ namespace CarShare.Controllers
             switch (unit)
             {
                 case 'K': //Kilometers -> default
-                    return dist * 1.609344;
+                    return Math.Round(dist * 1.609344, 2);
                 case 'N': //Nautical Miles 
-                    return dist * 0.8684;
+                    return Math.Round(dist * 0.8684, 2);
                 case 'M': //Miles
-                    return dist;
+                    return Math.Round(dist, 2);
             }
 
-            return dist;
+            return Math.Round(dist, 2);
         }
 
     }

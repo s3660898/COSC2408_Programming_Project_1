@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Confirm Hire";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Confirm Hire</h1>
+
+<p>Confirm!! Are you sure you want to hire this Car?</p>
+
+<div align="center" style="margin-top: 0.5rem">
+    <!--
+    <form>
+        <a id="yesDelete" class="btn btn-danger" style="margin-right: 5rem" href="/Admin/DeletingUser?Id=">YES</a>
+        <a id="noDelete" class="btn btn-primary" href="/Admin/UserManagement">NO</a>
+    </form>
+    -->
+
+    <form asp-controller="Carhiredetails" asp-action="AddhireConfirmation" autocomplete="off">
+        <table class="table">
+
+                <input type="hidden" name="id" value="@ViewBag.Id">
+                <input type="hidden" name="datepicker" value="@ViewBag.datepicker">
+                <input type="hidden" name="timepicker" value="@ViewBag.timepicker">
+                <input type="hidden" name="datepicker" value="@ViewBag.datepicker">
+                <input type="hidden" name="timepicker1" value="@ViewBag.timepicker1">
+                <input type="hidden" name="drop_off" value="@ViewBag.drop_off">
+                <input type="hidden" name="pickup_coor" value="@ViewBag.pickup_coor">
+
+        </table>
+
+        <button type="submit" class="btn btn-primary">Yes</button>
+
+        <button type="submit" class="btn btn-primary">No</button>
+    </form>
+</div>

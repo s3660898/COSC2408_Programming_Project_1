@@ -27,12 +27,12 @@ namespace CarShare.Models
 
         // the geo position of the car at the start of the hire
         // (just set to any number for now)
-        public double InitialLatitude { get; set; }
-        public double InitialLongitude { get; set; }
+        public float InitialLatitude { get; set; }
+        public float InitialLongitude { get; set; }
 
         // the geo position of the car when the hire finished
-        public double ReturnedLatitude { get; set; }
-        public double ReturnedLongitude { get; set; }
+        public float ReturnedLatitude { get; set; }
+        public float ReturnedLongitude { get; set; }
 
         // when the car was returned
         public DateTime ReturnedTime { get; set; }

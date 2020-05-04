@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using X.PagedList;
 using System.Linq;
 using System.Globalization;
+using System.Security.Claims;
+
 
 namespace CarShare.Controllers
 {
@@ -34,76 +36,79 @@ namespace CarShare.Controllers
             return View();
         }
 
-        //public IActionResult Addhire(AddCarViewModel model)
-        public IActionResult Addhire(int id, string datepicker, string timepicker, string datepicker1, string timepicker1, string drop_off)
+
+
+        public IActionResult Addhire(int id, string datepicker, string timepicker, string datepicker1, string timepicker1, string drop_off, string pickup_coor)
         {
-            Console.WriteLine("FROM Car hire controller");
-            Console.WriteLine(datepicker);
-            Console.WriteLine(timepicker);
-            Console.WriteLine(datepicker1);
-            Console.WriteLine(timepicker1);
-            Console.WriteLine(drop_off);
+            ViewBag.Id = id;
+            ViewBag.datepicker = datepicker;
+            ViewBag.timepicker = timepicker;
+            ViewBag.datepicker1 = datepicker1;
+            ViewBag.timepicker1 = timepicker1;
+            ViewBag.drop_off = drop_off;
+            ViewBag.pickup_coor = pickup_coor;
 
-            
-            string one = datepicker;
-            string two = timepicker;
 
-            DateTime dt = Convert.ToDateTime(one + " " + two);
-            
-            Console.WriteLine(dt);
+            return View();
+        }
 
+            public IActionResult AddhireConfirmation(int id, string datepicker, string timepicker, string datepicker1, string timepicker1, string drop_off, string pickup_coor)
+        {
+            string[] retCoordinate = drop_off.Split(',');
+            string[] iniCoordinate = pickup_coor.Split(',');
+
+            DateTime dt  = Convert.ToDateTime(datepicker + " " + timepicker);
             DateTime dt1 = Convert.ToDateTime(datepicker1 + " " + timepicker1);
+            var hireDuration = (dt1 - dt).TotalSeconds;
 
-            Console.WriteLine(dt1);
-
-            TimeSpan ts = new TimeSpan(0, 2, 8);
-            string s = new DateTime(ts.Ticks).ToString("mm:ss");
+            var hirDuration = makeTimeSpan(hireDuration);
 
             CarHistory CH = new CarHistory()
             {
                 HireTime = dt,
-                HireDuration = TimeSpan.Parse(s),
-                InitialLatitude = 37.74,
-                InitialLongitude = 145.00,
-                ReturnedLatitude = 37.74,
-                ReturnedLongitude = 145.00,
+                HireDuration      = TimeSpan.Parse(hirDuration),
+                InitialLatitude   = Convert.ToSingle(iniCoordinate[1]),
+                InitialLongitude  = Convert.ToSingle(iniCoordinate[0]),
+                ReturnedLatitude  = Convert.ToSingle(retCoordinate[1]),
+                ReturnedLongitude = Convert.ToSingle(retCoordinate[0]),
                 Status = 0,
                 ReturnedTime = dt1,
-                UserId = "fbd8b270-41ef-49c5-adbd-ac324c0b1ddb",
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 CarId = id
             };
-
 
             try
             {
                 _db.CarHistory.Add(CH);
                 _db.SaveChanges();
             } catch (Exception e) {
+                Console.WriteLine(e.Message);
                 Console.WriteLine("ERROR while saving");
             }
-
-
-
-            /*
-            Car c = new Car()
-            {
-                Registration = model.Registration,
-                Description = model.Description,
-                Category = model.Category,
-                Status = CarStatus.Available,
-                Latitude = 0,
-                Longitude = 0
-            };
-
-            _db.Cars.Add(c);
-            _db.SaveChanges();
-
-            return RedirectToAction("FleetManagement", "Admin");
-            */
-
-
+            
             return RedirectToAction( "Index", "Carhiredetails");
-            //return View("Index");
+        }
+
+
+        public static string makeTimeSpan(double timespan)
+        {
+            var seconds = timespan % 60;
+            
+            var remSeconds = timespan - seconds;
+
+            var minutes = remSeconds / 60;
+            Console.WriteLine(minutes);
+
+            var remMinutes = minutes % 60;
+
+            var remHours = minutes - remMinutes;
+
+            remHours = remHours / 60;
+
+            if(remMinutes == 0)
+                 return remHours + ":00:00";
+            else
+                 return remHours +":"+remMinutes+":00";
         }
 
 
