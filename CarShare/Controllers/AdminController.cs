@@ -4,6 +4,8 @@ using System.Linq;
 using CarShare.Data;
 using CarShare.Models;
 using System.Threading.Tasks;
+using CarShare.Data;
+using CarShare.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CarShare.Identity.Data;
@@ -22,11 +24,12 @@ namespace CarShare.Controllers
         {
             _db = db;
         }
-        // Returns the Admin View
+
         public IActionResult Index()
         {
             return View();
         }
+
         // Initiates the UserManagement page and sets the data to be displayed
         public IActionResult UserManagement()
         {
@@ -45,6 +48,7 @@ namespace CarShare.Controllers
             // Returns the UserManagement page view
             return View();
         }
+
         // Initiates ViewUser via their numerical Id's and returns the View
         public IActionResult ViewUser(string Id)
         {
@@ -52,14 +56,13 @@ namespace CarShare.Controllers
             return View(user);
         }
 
-
         public IActionResult EditUserDetails(string Id)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == Id);
             return View(user);
         }
-        [HttpPost, ValidateAntiForgeryToken]
 
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult EditUserDetails(CarShareUser model)
         {
             var user = _db.Users.SingleOrDefault(c => c.Id == model.Id);
@@ -87,6 +90,52 @@ namespace CarShare.Controllers
             _db.Users.Remove(user);
             _db.SaveChanges();
             return RedirectToAction("UserManagement", "Admin");
+        }
+
+        public IActionResult FleetManagement()
+        {
+            // getting ordered list from db
+            var CarList = _db.Cars.ToList().OrderBy(x => (int)(x.Status)).ToList();
+
+            // putting relevant data in ViewBag
+            ViewBag.CarList = new List<CarFleetViewModel>();
+            foreach (Car c in CarList)
+            {
+                ViewBag.CarList.Add(new CarFleetViewModel() {Id=c.Id, Registration = c.Registration, Description = c.Description, Status = c.Status});
+            }
+
+            return View();
+        }
+
+        public IActionResult ViewCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+
+            return View(car);
+        }
+
+        public IActionResult AddCar()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddCar(AddCarViewModel model)
+        {
+            Car c = new Car()
+            {
+                Registration = model.Registration,
+                Description = model.Description,
+                Category = model.Category,
+                Status = CarStatus.Available,
+                Latitude = 0,
+                Longitude = 0
+            };
+
+            _db.Cars.Add(c);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
         }
     }
 }
