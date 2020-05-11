@@ -277,5 +277,14 @@ namespace CarShare.Controllers
             var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
             return View(ParkingLot);
         }
+
+        public IActionResult DeletingParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+
+            _db.ParkingLots.Remove(ParkingLot);
+            _db.SaveChanges();
+            return RedirectToAction("ParkingLotManagement", "Admin");
+        }
     }
 }
