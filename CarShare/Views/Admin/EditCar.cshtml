@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <td><label asp-for="Status"></label></td>
-            <td><select asp-for="Status" asp-items="Html.GetEnumSelectList<CarStatus>()" class="form-control" ></select></td>
+            <td><select asp-for="Status" asp-items="Html.GetEnumSelectList<CarStatus>()" class="form-control"></select></td>
         </tr>
         <tr>
             <td><label asp-for="Category"></label></td>
@@ -29,6 +29,10 @@
         <tr>
             <td><label asp-for="NumSeats"></label></td>
             <td><input asp-for="NumSeats" placeholder="4" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Image"></label></td>
+            <td><input asp-for="Image" type="file" class="form-control" /></td>
         </tr>
     </table>
 

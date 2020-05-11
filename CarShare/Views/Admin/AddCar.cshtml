@@ -1,4 +1,4 @@
-﻿@model CarShare.Models.AddCarViewModel;
+﻿@model CarShare.Models.Car;
 @{
     ViewData["Title"] = "AddCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +8,7 @@
 
 
 
-<form asp-action="AddCar" asp-controller="Admin" autocomplete="off">
+<form asp-action="AddCar" asp-controller="Admin" method="post" enctype="multipart/form-data" autocomplete="off">
     <table class="table">
         <tr>
             <td><label asp-for="Registration"></label></td>
@@ -28,7 +28,11 @@
         </tr>
         <tr>
             <td><label asp-for="NumSeats"></label></td>
-            <td><input asp-for="NumSeats" value="4" class="form-control"/></td>
+            <td><input asp-for="NumSeats" value="4" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Image"></label></td>
+            <td><input asp-for="Image" type="file" class="form-control" /></td>
         </tr>
     </table>
 
