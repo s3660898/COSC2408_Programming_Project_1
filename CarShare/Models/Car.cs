@@ -33,5 +33,7 @@ namespace CarShare.Models
         public float Latitude { get; set; }
 
         public ICollection<CarHistory> CarHistories { get; set; }
+        public int ImageId { get; set; }
+        public Image Image { get; set; }
     }
 }
