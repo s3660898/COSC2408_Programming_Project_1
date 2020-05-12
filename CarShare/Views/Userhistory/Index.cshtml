@@ -1,0 +1,48 @@
+﻿@using X.PagedList
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+
+@model IPagedList<CarHistoryUserViewModel>
+@{
+    ViewData["Title"] = "ViewCarHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1> History </h1>
+
+    <table class="table">
+        <tr>
+            <th>Car </th>
+            <th>Time </th>
+            <th>Duration </th>
+            <th>Initial Location </th>
+            <th>Returned Location </th>
+            <th>Status</th>
+        </tr>
+
+
+        @foreach (var History in Model)
+        {
+            <tr>
+                <td>@History.Registration, @History.Description</td>
+                <td>@History.HireTime</td>
+                <td>@History.HireDuration</td>
+                <td>@History.InitialLongitude, @History.InitialLatitude</td>
+                <td>@History.ReturnedLongitude, @History.ReturnedLatitude</td>
+                <td>@History.Status</td>
+
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+
+</div>
+

@@ -8,7 +8,9 @@ using CarShare.Data;
 using CarShare.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 using CarShare.Identity.Data;
+using System.IO;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -101,15 +103,39 @@ namespace CarShare.Controllers
             ViewBag.CarList = new List<CarFleetViewModel>();
             foreach (Car c in CarList)
             {
-                ViewBag.CarList.Add(new CarFleetViewModel() {Id=c.Id, Registration = c.Registration, Description = c.Description, Status = c.Status});
+                ViewBag.CarList.Add(new CarFleetViewModel() { Id = c.Id, Registration = c.Registration, Description = c.Description, Status = c.Status });
             }
 
             return View();
         }
 
-        public IActionResult ViewCar(int Id)
+        public async Task<IActionResult> ViewCar(int Id)
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+
+            var carHistories = _db.CarHistory.Where(a => a.CarId == Id).OrderBy(a => a.Id).ToList();
+            var users = _db.Users.ToList<CarShareUser>();
+
+            var query = from user in users
+                        join history in carHistories on user equals history.User
+                        select new CarHistoryAdminViewModel()
+                        {
+                            Email = user.Email,
+                            HireTime = history.HireTime,
+                            HireDuration = history.HireDuration,
+                            InitialLongitude = history.InitialLongitude,
+                            InitialLatitude = history.InitialLatitude,
+                            ReturnedLongitude = history.ReturnedLongitude,
+                            ReturnedLatitude = history.ReturnedLatitude,
+                            Status = history.Status
+                        };
+
+            ViewBag.carHistory = query.ToList();
+
+            // Image
+            Image img = _db.Images.SingleOrDefault(i => i.Id == car.ImageId);
+            ViewBag.ImageTitle = img.Title;
+            ViewBag.ImageUrl = string.Format("data:image/jgp;base64,{0}", Convert.ToBase64String(img.Data));
 
             return View(car);
         }
@@ -120,22 +146,217 @@ namespace CarShare.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult AddCar(AddCarViewModel model)
+        public IActionResult AddCar(Car model)
         {
+
+
+            var file = Request.Form.Files.FirstOrDefault();
+            
+            // if file submitted
+            if(file != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+
+                // copying data to image
+                Image img = new Image()
+                {
+                    Title = file.FileName,
+                    Data = ms.ToArray()
+                };
+
+                ms.Close();
+                ms.Dispose();
+
+                // saving to database
+                _db.Images.Add(img);
+                _db.SaveChanges();
+
+                // updating model
+                model.Image = img;
+                model.ImageId = img.Id;
+            }
+
+            // validating possibly new model
+            // ModelState.Clear();
+            ModelState.Clear();
+            if (!TryValidateModel(model))
+            {
+                return View(model);
+            }
+
             Car c = new Car()
             {
                 Registration = model.Registration,
                 Description = model.Description,
+                Status = model.Status,
                 Category = model.Category,
-                Status = CarStatus.Available,
+                NumSeats = model.NumSeats,
                 Latitude = 0,
-                Longitude = 0
+                Longitude = 0,
+                Image = model.Image,
+                ImageId = model.ImageId
             };
 
             _db.Cars.Add(c);
             _db.SaveChanges();
 
             return RedirectToAction("FleetManagement", "Admin");
+        }
+
+        public IActionResult EditCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+            return View(car);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditCar(Car model)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == model.Id);
+
+            var file = Request.Form.Files.FirstOrDefault();
+
+            // if file submitted
+            if (file != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+
+                // copying data to image
+                Image img = new Image()
+                {
+                    Title = file.FileName,
+                    Data = ms.ToArray()
+                };
+
+                ms.Close();
+                ms.Dispose();
+
+                // saving to database
+                _db.Images.Add(img);
+                _db.SaveChanges();
+
+                // updating model
+                car.Image = img;
+                car.ImageId = img.Id;
+            }
+
+            if (model.Description != null)
+                car.Description = model.Description;
+            if (model.Registration != null)
+                car.Registration = model.Registration;
+            car.Status = model.Status;
+            car.Category = model.Category;
+            car.NumSeats = model.NumSeats;
+
+            _db.Cars.Update(car);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
+        }
+
+        public IActionResult DeleteCarConfirmation(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+            return View(car);
+        }
+
+        public IActionResult DeleteCar(int Id)
+        {
+            var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
+
+            _db.Cars.Remove(car);
+            _db.SaveChanges();
+
+            return RedirectToAction("FleetManagement", "Admin");
+        }
+        public IActionResult ParkingLotManagement()
+        {
+            // getting ordered list from db
+            var ParkingLotList = _db.ParkingLots.ToList();
+
+            // putting relevant data in ParkingLot ViewBag
+            ViewBag.ParkingLotList = new List<ParkingLot>();
+            foreach (ParkingLot c in ParkingLotList)
+
+
+            // Adds the ParkingLotList data in a new ParkingLot Model; Id, Latitude, Longitude, Address, Description
+            {
+                ViewBag.ParkingLotList.Add(new ParkingLot() { Id = c.Id, Latitude = c.Latitude, Longitude = c.Longitude, Address = c.Address, Description = c.Description });
+            }
+            // Returns the ParkingLotManagement page view
+            return View();
+        }
+        // Initiates ViewParkingLot via their numerical Id's and returns the View
+        public IActionResult ViewParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+            return View(ParkingLot);
+        }
+        /* Initiates the AddParkingLot page, and allows for Parking Lot data, Latitude, Longitude, Address and Description, to be entered,
+        adds the data to the ParkingLots database and then returns the Admin to the ParkingLotManagementPage*/
+        public IActionResult AddParkingLot()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddParkingLot(ParkingLot model)
+        {
+            ParkingLot c = new ParkingLot()
+            {
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                Address = model.Address,
+                Description = model.Description,
+                
+            };
+            _db.ParkingLots.Add(c);
+            _db.SaveChanges();
+
+            return RedirectToAction("ParkingLotManagement", "Admin");
+        }
+        // Initiates the EditParkingLot page, and allows for the ParkingLot data to be displayed
+        public IActionResult EditParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+            return View(ParkingLot);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        /* Initiates the AddParkingLot page, and allows for Parking Lot data, Latitude, Longitude, Address and Description, to be entered,
+        adds the data to the ParkingLots database and then returns the Admin to the ParkingLotManagementPage*/
+        public IActionResult EditParkingLot(ParkingLot model)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == model.Id);
+            ParkingLot.Latitude = model.Latitude;
+            ParkingLot.Longitude = model.Longitude;
+            if (model.Address != null)
+                ParkingLot.Address = model.Address;
+            if (model.Description != null)
+                ParkingLot.Description = model.Description;
+
+            _db.ParkingLots.Update(ParkingLot);
+            _db.SaveChanges();
+            return RedirectToAction("ParkingLotManagement", "Admin");
+        }
+
+
+        // Initiates the DeleteParkingLot page, and allows for the ParkingLot data to be displayed
+        public IActionResult DeleteParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+            return View(ParkingLot);
+        }
+
+        public IActionResult DeletingParkingLot(int Id)
+        {
+            var ParkingLot = _db.ParkingLots.SingleOrDefault(c => c.Id == Id);
+
+            _db.ParkingLots.Remove(ParkingLot);
+            _db.SaveChanges();
+            return RedirectToAction("ParkingLotManagement", "Admin");
         }
     }
 }

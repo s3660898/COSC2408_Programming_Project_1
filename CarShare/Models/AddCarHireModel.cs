@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace CarShare.Models
 {
-    public class AddCarViewModel
+    public class AddCarHireModel
     {
-        public string Registration { get; set; }
+        public DateTime HireTime { get; set; }
         public string Description { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
