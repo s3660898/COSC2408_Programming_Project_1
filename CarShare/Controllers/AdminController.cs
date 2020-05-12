@@ -215,6 +215,33 @@ namespace CarShare.Controllers
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == model.Id);
 
+            var file = Request.Form.Files.FirstOrDefault();
+
+            // if file submitted
+            if (file != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+
+                // copying data to image
+                Image img = new Image()
+                {
+                    Title = file.FileName,
+                    Data = ms.ToArray()
+                };
+
+                ms.Close();
+                ms.Dispose();
+
+                // saving to database
+                _db.Images.Add(img);
+                _db.SaveChanges();
+
+                // updating model
+                car.Image = img;
+                car.ImageId = img.Id;
+            }
+
             if(model.Description != null)
                 car.Description = model.Description;
             if(model.Registration != null)
