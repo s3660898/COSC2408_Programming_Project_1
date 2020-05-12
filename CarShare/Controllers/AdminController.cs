@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 using CarShare.Identity.Data;
+using System.IO;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -131,6 +132,11 @@ namespace CarShare.Controllers
 
             ViewBag.carHistory = query.ToList();
 
+            // Image
+            Image img = _db.Images.SingleOrDefault(i => i.Id == car.ImageId);
+            ViewBag.ImageTitle = img.Title;
+            ViewBag.ImageUrl = string.Format("data:image/jgp;base64,{0}", Convert.ToBase64String(img.Data));
+
             return View(car);
         }
 
@@ -140,8 +146,45 @@ namespace CarShare.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult AddCar(AddCarViewModel model)
+        public IActionResult AddCar(Car model)
         {
+
+
+            var file = Request.Form.Files.FirstOrDefault();
+            
+            // if file submitted
+            if(file != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+
+                // copying data to image
+                Image img = new Image()
+                {
+                    Title = file.FileName,
+                    Data = ms.ToArray()
+                };
+
+                ms.Close();
+                ms.Dispose();
+
+                // saving to database
+                _db.Images.Add(img);
+                _db.SaveChanges();
+
+                // updating model
+                model.Image = img;
+                model.ImageId = img.Id;
+            }
+
+            // validating possibly new model
+            // ModelState.Clear();
+            ModelState.Clear();
+            if (!TryValidateModel(model))
+            {
+                return View(model);
+            }
+
             Car c = new Car()
             {
                 Registration = model.Registration,
@@ -150,7 +193,9 @@ namespace CarShare.Controllers
                 Category = model.Category,
                 NumSeats = model.NumSeats,
                 Latitude = 0,
-                Longitude = 0
+                Longitude = 0,
+                Image = model.Image,
+                ImageId = model.ImageId
             };
 
             _db.Cars.Add(c);
@@ -169,6 +214,33 @@ namespace CarShare.Controllers
         public IActionResult EditCar(Car model)
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == model.Id);
+
+            var file = Request.Form.Files.FirstOrDefault();
+
+            // if file submitted
+            if (file != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+
+                // copying data to image
+                Image img = new Image()
+                {
+                    Title = file.FileName,
+                    Data = ms.ToArray()
+                };
+
+                ms.Close();
+                ms.Dispose();
+
+                // saving to database
+                _db.Images.Add(img);
+                _db.SaveChanges();
+
+                // updating model
+                car.Image = img;
+                car.ImageId = img.Id;
+            }
 
             if (model.Description != null)
                 car.Description = model.Description;
