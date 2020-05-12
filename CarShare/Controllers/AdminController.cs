@@ -148,24 +148,42 @@ namespace CarShare.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult AddCar(Car model)
         {
+
+
             var file = Request.Form.Files.FirstOrDefault();
             
-            MemoryStream ms = new MemoryStream();
-            file.CopyTo(ms);
-
-            // copying data to image
-            Image img = new Image()
+            // if file submitted
+            if(file != null)
             {
-                Title = file.FileName,
-                Data = ms.ToArray()
-            };
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
 
-            ms.Close();
-            ms.Dispose();
+                // copying data to image
+                Image img = new Image()
+                {
+                    Title = file.FileName,
+                    Data = ms.ToArray()
+                };
 
-            _db.Images.Add(img);
-            _db.SaveChanges();
-            
+                ms.Close();
+                ms.Dispose();
+
+                // saving to database
+                _db.Images.Add(img);
+                _db.SaveChanges();
+
+                // updating model
+                model.Image = img;
+                model.ImageId = img.Id;
+            }
+
+            // validating possibly new model
+            // ModelState.Clear();
+            ModelState.Clear();
+            if (!TryValidateModel(model))
+            {
+                return View(model);
+            }
 
             Car c = new Car()
             {
@@ -176,8 +194,8 @@ namespace CarShare.Controllers
                 NumSeats = model.NumSeats,
                 Latitude = 0,
                 Longitude = 0,
-                Image = img,
-                ImageId = img.Id
+                Image = model.Image,
+                ImageId = model.ImageId
             };
 
             _db.Cars.Add(c);
