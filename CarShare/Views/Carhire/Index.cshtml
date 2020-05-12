@@ -1,0 +1,72 @@
+@model CarShare.Models.Car;
+@{
+    ViewData["Title"] = "AddCarHire";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Car</h1>
+@{
+    // Here the initialization happens outside of the loop
+    var i = 0;
+}
+
+<table class="table" id="sortable">
+    <tr>
+        <th>Registration </th>
+        <th>Description </th>
+        <th>NumSeats </th>
+        <th>Distance </th>
+        <th> </th>
+
+    </tr>
+
+    @foreach (var Cars in ViewBag.cars)
+    {
+        <tr class="sort">
+            <td>@Cars.Registration </td>
+            <td>@Cars.Description </td>
+            <td>@Cars.NumSeats </td>
+            <td>@ViewBag.distance[i] </td>
+            <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id"> Hire</a> </td>
+        </tr>
+        i++;
+    }
+</table>
+
+
+<script>
+
+    function sortTable(){
+  var rows = $('#sortable tbody  tr.sort').get();
+
+  rows.sort(function(a, b) {
+
+  var A = $(a).children('td').eq(3).text().toUpperCase();
+  var B = $(b).children('td').eq(3).text().toUpperCase();
+
+  if(A < B) {
+    return -1;
+  }
+
+  if(A > B) {
+    return 1;
+  }
+
+  return 0;
+
+  });
+
+  $.each(rows, function(index, row) {
+    $('#sortable').children('tbody').append(row);
+  });
+}
+
+   $( document ).ready(function() {
+       //Sort table by distance
+       sortTable();
+   });
+
+
+
+
+</script>

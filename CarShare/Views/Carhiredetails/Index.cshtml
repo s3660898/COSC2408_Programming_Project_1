@@ -1,0 +1,133 @@
+﻿@model CarShare.Models.Car;
+@{
+    ViewData["Title"] = "AddCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Car hire</h1>
+
+<form asp-controller="Carhiredetails" asp-action="AddhireConfirmation" autocomplete="off" name="frmcarhire" id="frmcarhire" onsubmit="return saveCarHire();">
+    <table class="table">
+        @foreach (var Cars in ViewBag.car)
+        {
+            <tr>
+                <td>
+                    <label> Hire</label>
+                </td>
+                <td>
+                    <input type="hidden" name="id" value="@Cars.Id">
+                    <input asp-for="Registration" placeholder="Registration" class="form-control" readonly value=@Cars.Registration />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>When</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="When" id="datepicker" name="datepicker" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input placeholder="Whentime" id="timepicker" name="timepicker" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Category">Until</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Until" id="datepicker1" name="datepicker1" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input placeholder="untiltime" id="timepicker1" name="timepicker1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Pick up</label>
+                </td>
+                <td>
+                    <input type="hidden" name="pickup_coor" value="@Cars.Longitude,@Cars.Latitude">
+                    <input type="text" placeholder="Pick up" class="form-control" readonly value="@Cars.Longitude,@Cars.Latitude"  />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Drop off</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Drop off" class="form-control" name="drop_off" id="drop_off"/>
+                </td>
+            </tr>
+        }
+        </table>
+
+    <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+
+<script>
+    $( document ).ready(function() {
+         $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });;
+         $("#timepicker").timepicker({timeFormat: 'h:mm:ss p',});
+         $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });;
+         $('#timepicker1').timepicker({timeFormat: 'h:mm:ss p',});
+   });
+
+    //onSubmit="return saveCarHire()"
+    function saveCarHire() {
+        //Validation goes here   'background-color': '#fff'
+        var ERROR_FLAG = 0;
+        if ($('#datepicker').val() == "") {
+            $('#datepicker').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#datepicker').css({'border-color': 'white'});
+        }
+
+        if ($('#timepicker').val() == "") {
+            $('#timepicker').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#timepicker').css({'border-color': 'white'});
+        }
+
+
+        if ($('#datepicker1').val() == "") {
+            $('#datepicker1').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#datepicker1').css({'border-color': 'white'});
+        }
+
+        if ($('#timepicker1').val() == "") {
+            $('#timepicker1').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#timepicker1').css({'border-color': 'white'});
+        }
+
+
+        if ($('#drop_off').val() == "") {
+            $('#drop_off').css({ 'border-color': 'red' });
+            ERROR_FLAG++;
+        }
+        else {
+            $('#drop_off').css({'border-color': 'white'});
+        }
+
+
+        if (ERROR_FLAG > 0) return false;
+
+
+        var conf = confirm("Are you sure you want hire?");
+
+
+        if (conf) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+  </script>
