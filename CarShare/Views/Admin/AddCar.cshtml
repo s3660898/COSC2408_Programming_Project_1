@@ -11,36 +11,24 @@
 <form asp-action="AddCar" asp-controller="Admin" autocomplete="off">
     <table class="table">
         <tr>
-            <td>
-                <label asp-for="Registration"></label>
-            </td>
-            <td>
-                <input asp-for="Registration" placeholder="Registration" class="form-control" />
-            </td>
+            <td><label asp-for="Registration"></label></td>
+            <td><input asp-for="Registration" placeholder="Registration" class="form-control" /></td>
         </tr>
         <tr>
-            <td>
-                <label asp-for="Description"></label>
-            </td>
-            <td>
-                <input asp-for="Description" placeholder="Description" class="form-control" />
-            </td>
+            <td><label asp-for="Description"></label></td>
+            <td><input asp-for="Description" placeholder="Description" class="form-control" /></td>
         </tr>
         <tr>
-            <td>
-                <label asp-for="Category"></label>
-            </td>
-            <td>
-                <select asp-for="Category" asp-items="Html.GetEnumSelectList<CarCategory>()"></select>
-            </td>
+            <td><label asp-for="Status"></label></td>
+            <td><select asp-for="Status" asp-items="Html.GetEnumSelectList<CarStatus>()" class="form-control"></select></td>
         </tr>
         <tr>
-            <td>
-                <label asp-for="NumSeats"></label>
-            </td>
-            <td>
-                <input asp-for="NumSeats" placeholder="4" class="form-control" />
-            </td>
+            <td><label asp-for="Category"></label></td>
+            <td><select asp-for="Category" asp-items="Html.GetEnumSelectList<CarCategory>()" class="form-control"></select></td>
+        </tr>
+        <tr>
+            <td><label asp-for="NumSeats"></label></td>
+            <td><input asp-for="NumSeats" value="4" class="form-control"/></td>
         </tr>
     </table>
 

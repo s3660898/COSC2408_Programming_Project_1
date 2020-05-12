@@ -1,0 +1,57 @@
+﻿@using CarShare.Identity.Data;
+@{
+    ViewData["Title"] = "UserManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>UserManagement</h1>
+
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <th>Address</th>
+        <th>User Status</th>
+        <th></th>
+    </tr>
+    @*Creates the ViewBag for the User, and assigns different colours based upon the user status: AwaitingHire = lightgreen, 
+        CurrentlyHiring = lightblue, InvalidEmail = orange, Banned = red*@
+    @foreach (var c in ViewBag.UserList)
+    {
+        @switch (c.UserStatus)
+        {
+            case UserStatus.AwaitingHire:
+                <tr class="click-row" data-href="ViewUser?Id=@c.Id" style="background-color:#c6ffbc">
+                    <td class="td_cust">@c.Email</td>
+                    <td class="td_cust">@c.Address</td>
+                    <td class="td_cust">@c.UserStatus</td>
+                    <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
+                </tr>
+                break;
+            case UserStatus.CurrentlyHiring:
+                <tr style="background-color:lightblue">
+                    <td class="td_cust">@c.Email</td>
+                    <td class="td_cust">@c.Address</td>
+                    <td class="td_cust">@c.UserStatus</td>
+                    <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
+                </tr>
+                break;
+            case UserStatus.InvalidEmail:
+                <tr style="background-color:Orange">
+                    <td class="td_cust">@c.Email</td>
+                    <td class="td_cust">@c.Address</td>
+                    <td class="td_cust">@c.UserStatus</td>
+                    <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
+                </tr>
+                break;
+            case UserStatus.Banned:
+                <tr style="background-color:#ffa5a5">
+                    <td class="td_cust">@c.Email</td>
+                    <td class="td_cust">@c.Address</td>
+                    <td class="td_cust">@c.UserStatus</td>
+                    <td class="td_cust"><a href="ViewUser?Id=@c.Id">View</a></td>
+                </tr>
+                break;
+        }
+
+    }
+</table>

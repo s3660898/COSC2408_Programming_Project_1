@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "ParkingLotManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
+    <h2>Parking Lot Management</h2>
+    <a class="btn btn-primary" href="/Admin/AddParkingLot">Add ParkingLot</a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Address</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+    @*Creates the ViewBag for the ParkingLotList, allowing for all available parking lots to be shown*@
+    @foreach (var c in ViewBag.ParkingLotList)
+    {
+        <tr class="click-row" data-href="ViewParkingLot?Id=@c.Id">
+            <td class="td_cust">@c.Latitude</td>
+            <td class="td_cust">@c.Longitude</td>
+            <td class="td_cust">@c.Address</td>
+            <td class="td_cust">@c.Description</td>
+            <td class="td_cust"><a href="ViewParkingLot?Id=@c.Id">View</a></td>
+        </tr>
+    }
+</table>
