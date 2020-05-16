@@ -4,17 +4,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Car</h1>
+<h1>Hire Car</h1>
 @{
     // Here the initialization happens outside of the loop
     var i = 0;
 }
 
+<div>
+    <table class="table">
+        <tr>
+            <th style="border-top:0px !important;">Vehicle Type</th>
+            <th style="border-top:0px !important;">Seats </th>
+            <th style="border-top:0px !important;">From </th>
+            <th style="border-top:0px !important;">Until</th>
+        </tr>
+        <tr>
+            <td style="border-top:0px !important;">
+                <select>
+                    <option value=""></option>
+                    <option value="Passenger">Passenger </option>
+                    <option value="Van">Van </option>
+                    <option value="Pickup">Pickup </option>
+                    <option value="Luxury">Luxury </option>
+                    <option value="Sport">Sport </option>
+                </select>
+
+            </td>
+            <td style="border-top:0px !important;">
+                <select>
+                    <option value=""></option>
+                    <option value="2">2 </option>
+                    <option value="3">3 </option>
+                    <option value="4">4 </option>
+                </select>
+            </td>
+            <td style="border-top:0px !important;">
+                <input type="text" name="from_date" id="from_date">
+            </td>
+            <td style="border-top:0px !important;">
+                <input type="text" name="until_date" id="until_date">
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+
 <table class="table" id="sortable">
     <tr>
+        <th>Image</th>
         <th>Registration </th>
-        <th>Description </th>
         <th>NumSeats </th>
+        <th>location </th>
         <th>Distance </th>
         <th> </th>
 
@@ -23,9 +65,10 @@
     @foreach (var Cars in ViewBag.cars)
     {
         <tr class="sort">
+             <td><Image src="/images/car1.png" Stretch="Fill" style="width:250px; height:250px;" /></td>
             <td>@Cars.Registration </td>
-            <td>@Cars.Description </td>
             <td>@Cars.NumSeats </td>
+            <td><Image src="/images/maps.png" Stretch="Fill" style="width:250px; height:250px;" /> </td>
             <td>@ViewBag.distance[i] </td>
             <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id"> Hire</a> </td>
         </tr>
@@ -35,6 +78,11 @@
 
 
 <script>
+
+    $(document).ready(function () {
+         $("#from_date").datepicker({ dateFormat: 'dd/mm/yy' });;
+         $("#until_date").datepicker({ dateFormat: 'dd/mm/yy' });;
+   });
 
     function sortTable(){
   var rows = $('#sortable tbody  tr.sort').get();
