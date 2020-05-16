@@ -20,19 +20,30 @@ namespace CarShare.Controllers
             _db = db;
         }
 
-        public async Task<IActionResult> Index(int? page = 1)
+        public async Task<IActionResult> Index(int page = 1)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var carHistories = _db.CarHistory.Where(a => a.UserId == userId).OrderBy(a => a.HireTime);
+            var cars = _db.Cars.ToList<Car>();
+
+            var query = from car in cars
+                        join history in carHistories on car equals history.Car
+                        select new CarHistoryUserViewModel()
+                        {
+                            Registration = car.Registration,
+                            Description = car.Description,
+                            HireTime = history.HireTime,
+                            HireDuration = history.HireDuration,
+                            InitialLongitude = history.InitialLongitude,
+                            InitialLatitude = history.InitialLatitude,
+                            ReturnedLongitude = history.ReturnedLongitude,
+                            ReturnedLatitude = history.ReturnedLatitude,
+                            Status = history.Status
+                        };
 
             const int pageSize = 50;
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            Console.WriteLine(userId);
-
             ViewBag.userId = userId;
-
-
-            var pagedList1 = await _db.CarHistory.Where(a => a.UserId == userId).OrderBy(a => a.Id).ToPagedListAsync(page, pageSize);
+            var pagedList1 = await query.ToPagedListAsync(page, pageSize);
 
             return View(pagedList1);
 

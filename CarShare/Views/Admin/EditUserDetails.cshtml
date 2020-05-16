@@ -1,0 +1,41 @@
+﻿@model CarShare.Identity.Data.CarShareUser
+@using CarShare.Identity.Data;
+@{
+    ViewData["Title"] = "Edit User Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit User Details</h1>
+
+@*Input boxes allow for the user's data, Email, Address and UserStatus, to be changed*@
+<form asp-action="EditUserDetails" asp-controller="Admin" autocomplete="off">
+    @Html.HiddenFor(c => c.Id) @*The Id is hidden, so it does not have to be entered manually by the Admin*@
+    <table class="table">
+        <tr>
+            <td>
+                <label asp-for="Email"></label>
+            </td>
+            <td>
+                <input asp-for="Email" placeholder="@Model.Email" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Address"></label>
+            </td>
+            <td>
+                <input asp-for="Address" placeholder="@Model.Address" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="UserStatus"></label>
+            </td>
+            <td>
+                <select asp-for="UserStatus" class="form-control" asp-items="Html.GetEnumSelectList<UserStatus>()"></select>
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

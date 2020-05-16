@@ -1,0 +1,47 @@
+﻿@model CarShare.Models.ParkingLot
+@{
+    ViewData["Title"] = "EditParkingLot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit Parking Lot</h1>
+@*Input boxes allow for the Parking Lot's data, the Latitude, Longitude, Address and Description, to be changed*@
+<form asp-action="EditParkingLot" asp-controller="Admin" autocomplete="off">
+    @Html.HiddenFor(c => c.Id) @*The Id is hidden, so it does not have to be entered manually by the Admin*@
+    <table class="table">
+        <tr>
+            <td>
+                <label asp-for="Latitude"></label>
+            </td>
+            <td>
+                <input asp-for="Latitude" placeholder="@Model.Latitude" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Longitude"></label>
+            </td>
+            <td>
+                <input asp-for="Longitude" placeholder="@Model.Longitude" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Address"></label>
+            </td>
+            <td>
+                <input asp-for="Address" placeholder="@Model.Address" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Description"></label>
+            </td>
+            <td>
+                <input asp-for="Description" placeholder="@Model.Description" class="form-control" />
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

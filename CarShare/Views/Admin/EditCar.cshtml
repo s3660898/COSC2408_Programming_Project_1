@@ -1,0 +1,58 @@
+﻿@model CarShare.Models.Car
+@{
+    ViewData["Title"] = "ViewCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
+    <h2>Edit Car</h2>
+    <a class="btn btn-danger" href="/Admin/DeleteCarConfirmation?Id=@Model.Id">Delete</a>
+</div>
+<form asp-action="EditCar" asp-controller="Admin" method="post" enctype="multipart/form-data" autocomplete="off">
+    @Html.HiddenFor(c => c.Id)
+    <table class="table">
+        <tr>
+            <td><label asp-for="Registration"></label></td>
+            <td>
+                <input asp-for="Registration" placeholder="Registration" class="form-control" />
+                <span asp-validation-for="Registration" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Description"></label></td>
+            <td>
+                <input asp-for="Description" placeholder="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Status"></label></td>
+            <td>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<CarStatus>()" class="form-control"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Category"></label></td>
+            <td>
+                <select asp-for="Category" asp-items="Html.GetEnumSelectList<CarCategory>()" class="form-control"></select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="NumSeats"></label></td>
+            <td>
+                <input asp-for="NumSeats" value="4" class="form-control" />
+                <span asp-validation-for="NumSeats" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label asp-for="Image"></label></td>
+            <td>
+                <input asp-for="Image" type="file" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

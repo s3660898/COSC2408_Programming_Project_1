@@ -3,10 +3,16 @@
     ViewData["Title"] = "ViewCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>View Car</h1>
+<div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
+    <h2>View Car</h2>
+    <a class="btn btn-primary" href="/Admin/EditCar?Id=@Model.Id">Edit</a>
+</div>
 
 <table class="table">
+    <tr>
+        <td>Image:</td>
+        <td><img class="img mx-auto d-block" src="@ViewBag.ImageUrl" alt="@ViewBag.ImageTitle"/></td>
+    </tr>
     <tr>
         <td>Registration:</td>
         <td>@Model.Registration</td>
@@ -18,6 +24,14 @@
     <tr>
         <td>Status:</td>
         <td>@Model.Status</td>
+    </tr>
+    <tr>
+        <td>Category:</td>
+        <td>@Model.Category</td>
+    </tr>
+    <tr>
+        <td>Seats:</td>
+        <td>@Model.NumSeats</td>
     </tr>
     <tr>
         <td>Position:</td>
@@ -32,27 +46,24 @@
     <table class="table">
         <tr>
             
-            <th>Id </th>
-            <th>HireTime </th>
-            <th>HireDuration </th>
-            <th>InitialLatitude </th>
-            <th>InitialLongitude </th>
-            <th>ReturnedLatitude </th>
-            <th>ReturnedLongitude </th>
+            <th>User Email </th>
+            <th>Time </th>
+            <th>Duration </th>
+            <th>Initial Location </th>
+            <th>Returned Location </th>
+            <th>Status</th>
         </tr>
 
 
         @foreach (var History in @ViewBag.carHistory)
         {
             <tr>
-                
-                <td>@History.Id</td>
+                <td>@History.Email </td>
                 <td>@History.HireTime </td>
                 <td>@History.HireDuration </td>
-                <td>@History.InitialLatitude </td>
-                <td>@History.InitialLongitude </td>
-                <td>@History.ReturnedLatitude </td>
-                <td>@History.ReturnedLongitude </td>
+                <td>@History.InitialLongitude, @History.InitialLatitude </td>
+                <td>@History.ReturnedLongitude, @History.ReturnedLatitude </td>
+                <td>@History.Status </td>
             </tr>
         }
     </table>
