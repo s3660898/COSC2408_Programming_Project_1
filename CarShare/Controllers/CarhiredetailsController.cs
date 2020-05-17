@@ -32,6 +32,12 @@ namespace CarShare.Controllers
              
             var Car = _db.Cars.Where(x => x.Id == id).OrderBy(x => x.Id).ToList();
 
+
+            var carObj = _db.Cars.SingleOrDefault(c => c.Id == id);
+            Image img = _db.Images.SingleOrDefault(i => i.Id == carObj.ImageId);
+            ViewBag.ImageTitle = img.Title;
+            ViewBag.ImageUrl   = string.Format("data:image/jgp;base64,{0}", Convert.ToBase64String(img.Data));
+
             ViewBag.car = Car;
             return View();
         }

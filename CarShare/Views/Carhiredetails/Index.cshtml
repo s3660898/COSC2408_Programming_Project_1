@@ -10,15 +10,21 @@
     <table class="table">
         @foreach (var Cars in ViewBag.car)
         {
-            <tr>
-                <td>
-                    <label> Hire</label>
-                </td>
-                <td>
-                    <input type="hidden" name="id" value="@Cars.Id">
-                    <input asp-for="Registration" placeholder="Registration" class="form-control" readonly value=@Cars.Registration />
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <label> Image</label>
+            </td>
+            <td align="left"><div><img class="img mx-auto d-block" src="@ViewBag.ImageUrl" alt="@ViewBag.ImageTitle" style="width:400px; height:400px;"/></div></td>
+        </tr>
+        <tr>
+            <td>
+                <label> Registration</label>
+            </td>
+            <td>
+                <input type="hidden" name="id" value="@Cars.Id">
+                <input asp-for="Registration" placeholder="Registration" class="form-control" readonly value=@Cars.Registration />
+            </td>
+        </tr>
             <tr>
                 <td>
                     <label>When</label>
@@ -46,6 +52,7 @@
                 <td>
                     <input type="hidden" name="pickup_coor" value="@Cars.Longitude,@Cars.Latitude">
                     <input type="text" placeholder="Pick up" class="form-control" readonly value="@Cars.Longitude,@Cars.Latitude"  />
+                    <div id="map_container" style="width:400px; height:400px;"> </div>
                 </td>
             </tr>
             <tr>
@@ -68,7 +75,20 @@
          $("#timepicker").timepicker({timeFormat: 'h:mm:ss p',});
          $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });;
          $('#timepicker1').timepicker({timeFormat: 'h:mm:ss p',});
-   });
+    });
+
+    function initMap() {
+
+        // The location of Uluru
+        var coordinate = { lat:-37.82 , lng:144.95 };
+        // The map, centered at coordinate
+        var map = new google.maps.Map(
+            document.getElementById('map_container'), { zoom: 4, center: coordinate });
+        // The marker, positioned at coordinate
+        var marker = new google.maps.Marker({ position: coordinate, map: map });
+
+
+    }
 
     //onSubmit="return saveCarHire()"
     function saveCarHire() {
@@ -131,3 +151,7 @@
         }
     }
   </script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMBzIrXd_av3r74X_NcAXJ-DePpLGLcE&callback=initMap">
+</script>

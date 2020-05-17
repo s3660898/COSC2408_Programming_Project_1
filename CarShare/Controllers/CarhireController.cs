@@ -36,10 +36,13 @@ namespace CarShare.Controllers
 
             //37.7431, 145.0081 preston
 
-            Console.WriteLine("Total Cars");
+            //Console.WriteLine("Total Cars");
 
             int totalRecord =  cars.Count();
-            Double[] Totaldistance = new Double[totalRecord]; ;
+            Double[] Totaldistance = new Double[totalRecord];
+            String[] CarImages = new String[totalRecord];
+            String[] ImageTitle = new String[totalRecord];
+
             int counter = 0;
             if (cars.Count() > 0) {
                 foreach (var Car in cars) {
@@ -47,6 +50,12 @@ namespace CarShare.Controllers
                     //Origin is harcoded
                     var distance = DistanceTo(37.8290, 144.9570, Car.Latitude, Car.Longitude);
                     Totaldistance[counter] = distance;
+                    Console.WriteLine(Car.Latitude );
+                    Console.WriteLine(Car.Longitude);
+
+                    Image img = _db.Images.SingleOrDefault(i => i.Id == Car.ImageId);
+                    CarImages[counter] = img.Title;
+                    ImageTitle[counter] = string.Format("data:image/jgp;base64,{0}", Convert.ToBase64String(img.Data));
 
                     counter++;
                 }
@@ -54,6 +63,8 @@ namespace CarShare.Controllers
 
             ViewBag.cars = cars;
             ViewBag.distance = Totaldistance;
+            ViewBag.imageUrl = ImageTitle;
+            ViewBag.imageTitle = CarImages;
 
             return View();
         }
