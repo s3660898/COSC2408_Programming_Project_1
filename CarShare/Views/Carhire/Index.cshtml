@@ -65,10 +65,10 @@
     @foreach (var Cars in ViewBag.cars)
     {
         <tr class="sort">
-             <td><Image src="/images/car1.png" Stretch="Fill" style="width:250px; height:250px;" /></td>
+            <td><img class="img mx-auto d-block" src=@ViewBag.imageUrl[i] alt=@ViewBag.imageTitle[i] style="width:400px; height:400px;" /></td>
             <td>@Cars.Registration </td>
             <td>@Cars.NumSeats </td>
-            <td><Image src="/images/maps.png" Stretch="Fill" style="width:250px; height:250px;" /> </td>
+            <td><div id="locid_@i" style="width:400px; height:400px;" class="map_holder"> ContentHERE</div> </td>
             <td>@ViewBag.distance[i] </td>
             <td><a asp-controller="Carhiredetails" asp-action="Index" asp-route-id="@Cars.Id"> Hire</a> </td>
         </tr>
@@ -78,43 +78,79 @@
 
 
 <script>
+    var map;
+    $(document).ready(function () {
+        $("#from_date").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#until_date").datepicker({ dateFormat: 'dd/mm/yy' });
+
+        //initMap();
+    });
+
+    function initMap() {
+        var totalCar = $('.map_holder').length;
+
+        for (i = 0; i < totalCar; i++) { 
+           var coordinate = { lat: -37.82, lng: 144.95 };
+           // The map, centered at coordinate
+           var map = new google.maps.Map(
+              document.getElementById('locid_'+i), { zoom: 4, center: coordinate });
+           // The marker, positioned at coordinate
+           var marker = new google.maps.Marker({ position: coordinate, map: map });
+       }
+    }
+
+    /*
+     * 
+     *            var coordinate = { lat: -37.82, lng: 144.95 };
+           // The map, centered at coordinate
+           var map = new google.maps.Map(
+              document.getElementById('locid_1'), { zoom: 4, center: coordinate });
+           // The marker, positioned at coordinate
+           var marker = new google.maps.Marker({ position: coordinate, map: map });
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("locid_0"), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8
+      });
+    }
+    */
+
+    function sortTable() {
+        var rows = $('#sortable tbody  tr.sort').get();
+
+        rows.sort(function (a, b) {
+
+            var A = $(a).children('td').eq(3).text().toUpperCase();
+            var B = $(b).children('td').eq(3).text().toUpperCase();
+
+            if (A < B) {
+                return -1;
+            }
+
+            if (A > B) {
+                return 1;
+            }
+
+            return 0;
+
+        });
+
+        $.each(rows, function (index, row) {
+            $('#sortable').children('tbody').append(row);
+        });
+    }
 
     $(document).ready(function () {
-         $("#from_date").datepicker({ dateFormat: 'dd/mm/yy' });;
-         $("#until_date").datepicker({ dateFormat: 'dd/mm/yy' });;
-   });
-
-    function sortTable(){
-  var rows = $('#sortable tbody  tr.sort').get();
-
-  rows.sort(function(a, b) {
-
-  var A = $(a).children('td').eq(3).text().toUpperCase();
-  var B = $(b).children('td').eq(3).text().toUpperCase();
-
-  if(A < B) {
-    return -1;
-  }
-
-  if(A > B) {
-    return 1;
-  }
-
-  return 0;
-
-  });
-
-  $.each(rows, function(index, row) {
-    $('#sortable').children('tbody').append(row);
-  });
-}
-
-   $( document ).ready(function() {
-       //Sort table by distance
-       sortTable();
-   });
+        //Sort table by distance
+        sortTable();
+    });
 
 
 
 
 </script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMBzIrXd_av3r74X_NcAXJ-DePpLGLcE&callback=initMap">
+</script>
+
