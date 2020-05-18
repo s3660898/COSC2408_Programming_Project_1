@@ -11,45 +11,52 @@
 <form asp-action="AddCar" asp-controller="Admin" method="post" enctype="multipart/form-data" autocomplete="off">
     <table class="table">
         <tr>
+            <td><label asp-for="ParkingLot"></label></td>
+            <td>
+                <select asp-for="ParkingLotId" asp-items="@(new SelectList(ViewBag.ParkingLots, "Id", "Description"))" class="form-control"></select>
+                <span asp-validation-for="ParkingLotId" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
             <td><label asp-for="Registration"></label></td>
             <td>
-              <input asp-for="Registration" placeholder="Registration" class="form-control" />
-              <span asp-validation-for="Registration" class="text-danger"></span>
+                <input asp-for="Registration" placeholder="Registration" class="form-control" />
+                <span asp-validation-for="Registration" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td><label asp-for="Description"></label></td>
             <td>
-              <input asp-for="Description" placeholder="Description" class="form-control" />
-              <span asp-validation-for="Description" class="text-danger"></span>
+                <input asp-for="Description" placeholder="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td><label asp-for="Status"></label></td>
             <td>
-              <select asp-for="Status" asp-items="Html.GetEnumSelectList<CarStatus>()" class="form-control"></select>
-              <span asp-validation-for="Status" class="text-danger"></span>
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<CarStatus>()" class="form-control"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td><label asp-for="Category"></label></td>
             <td>
-              <select asp-for="Category" asp-items="Html.GetEnumSelectList<CarCategory>()" class="form-control"></select>
-              <span asp-validation-for="Category" class="text-danger"></span>
+                <select asp-for="Category" asp-items="Html.GetEnumSelectList<CarCategory>()" class="form-control"></select>
+                <span asp-validation-for="Category" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td><label asp-for="NumSeats"></label></td>
             <td>
-              <input asp-for="NumSeats" value="4" class="form-control" />
-              <span asp-validation-for="NumSeats" class="text-danger"></span>
+                <input asp-for="NumSeats" value="4" class="form-control" />
+                <span asp-validation-for="NumSeats" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td><label asp-for="Image"></label></td>
             <td>
-              <input asp-for="Image" type="file" class="form-control" />
-              <span asp-validation-for="Image" class="text-danger"></span>
+                <input asp-for="Image" type="file" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
             </td>
         </tr>
     </table>

@@ -11,6 +11,13 @@
     @Html.HiddenFor(c => c.Id)
     <table class="table">
         <tr>
+            <td><label asp-for="ParkingLot"></label></td>
+            <td>
+                <select asp-for="ParkingLotId" asp-items="@(new SelectList(ViewBag.ParkingLots, "Id", "Description"))" class="form-control"></select>
+                <span asp-validation-for="ParkingLotId" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
             <td><label asp-for="Registration"></label></td>
             <td>
                 <input asp-for="Registration" placeholder="Registration" class="form-control" />

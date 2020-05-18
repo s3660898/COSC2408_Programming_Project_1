@@ -3,6 +3,27 @@
     ViewData["Title"] = "ViewCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: @Model.Latitude, lng: @Model.Longitude },
+            zoom: 16
+        });
+
+        var marker = new google.maps.Marker({
+            position: { lat: @Model.Latitude, lng: @Model.Longitude },
+            map: map,
+            title: 'car location'
+        })
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMBzIrXd_av3r74X_NcAXJ-DePpLGLcE&callback=initMap&libraries=&v=weekly"
+        async
+        defer></script>
+
 <div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
     <h2>View Car</h2>
     <a class="btn btn-primary" href="/Admin/EditCar?Id=@Model.Id">Edit</a>
@@ -11,7 +32,11 @@
 <table class="table">
     <tr>
         <td>Image:</td>
-        <td><img class="img mx-auto d-block" src="@ViewBag.ImageUrl" alt="@ViewBag.ImageTitle"/></td>
+        <td><img class="img mx-auto d-block" src="@ViewBag.ImageUrl" alt="@ViewBag.ImageTitle" /></td>
+    </tr>
+    <tr>
+        <td>ParkingLot:</td>
+        <td>@ViewBag.ParkingLot.Description at @ViewBag.ParkingLot.Address</td>
     </tr>
     <tr>
         <td>Registration:</td>
@@ -35,7 +60,7 @@
     </tr>
     <tr>
         <td>Position:</td>
-        <td>@Model.Longitude, @Model.Latitude</td>
+        <td><div id="map" style="height:25em"></div></td>
     </tr>
 </table>
 
@@ -45,7 +70,7 @@
 
     <table class="table">
         <tr>
-            
+
             <th>User Email </th>
             <th>Time </th>
             <th>Duration </th>
@@ -68,7 +93,7 @@
         }
     </table>
 
-    
+
 
 </div>
 
