@@ -96,6 +96,10 @@ namespace CarShare.Controllers
 
         public IActionResult FleetManagement()
         {
+            // early exit if no parking lots
+            if (_db.ParkingLots.FirstOrDefault() == null)
+                return View("NoParkingLotsWarning");
+
             // getting ordered list from db
             var CarList = _db.Cars.ToList().OrderBy(x => (int)(x.Status)).ToList();
 
