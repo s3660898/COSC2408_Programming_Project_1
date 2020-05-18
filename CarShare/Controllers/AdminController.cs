@@ -136,6 +136,18 @@ namespace CarShare.Controllers
 
             ViewBag.carHistory = query.ToList();
 
+            // for parking lot information
+            if (car.ParkingLotId != null)
+                ViewBag.ParkingLot = _db.ParkingLots.Where(p => p.Id == car.ParkingLotId).FirstOrDefault();
+            else
+                ViewBag.ParkingLot = new ParkingLot()
+                {
+                    Longitude = 0,
+                    Latitude = 0,
+                    Description = "Error parking lot :^)",
+                    Address = "123 Error Road, Errorville"
+                };
+
             // Image
             Image img = _db.Images.SingleOrDefault(i => i.Id == car.ImageId);
             ViewBag.ImageTitle = img.Title;
@@ -146,6 +158,7 @@ namespace CarShare.Controllers
 
         public IActionResult AddCar()
         {
+            ViewBag.ParkingLots = _db.ParkingLots.ToList();
             return View();
         }
 
@@ -189,6 +202,9 @@ namespace CarShare.Controllers
                 return View(model);
             }
 
+            // getting parking lot based on id
+            ParkingLot pl = _db.ParkingLots.Where(p => p.Id == model.ParkingLotId).FirstOrDefault();
+
             Car c = new Car()
             {
                 Registration = model.Registration,
@@ -196,10 +212,11 @@ namespace CarShare.Controllers
                 Status = model.Status,
                 Category = model.Category,
                 NumSeats = model.NumSeats,
-                Latitude = 0,
-                Longitude = 0,
+                Latitude = pl.Latitude,
+                Longitude = pl.Longitude,
                 Image = model.Image,
-                ImageId = model.ImageId
+                ImageId = model.ImageId,
+                ParkingLotId = model.ParkingLotId
             };
 
             _db.Cars.Add(c);
@@ -210,6 +227,7 @@ namespace CarShare.Controllers
 
         public IActionResult EditCar(int Id)
         {
+            ViewBag.ParkingLots = _db.ParkingLots.ToList();
             var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
             return View(car);
         }
@@ -253,6 +271,13 @@ namespace CarShare.Controllers
             car.Status = model.Status;
             car.Category = model.Category;
             car.NumSeats = model.NumSeats;
+
+            ParkingLot pl = _db.ParkingLots.Where(p => p.Id == model.ParkingLotId).FirstOrDefault();
+
+            car.ParkingLotId = model.ParkingLotId;
+            car.Latitude = pl.Latitude;
+            car.Longitude = pl.Longitude;
+
 
             _db.Cars.Update(car);
             _db.SaveChanges();
