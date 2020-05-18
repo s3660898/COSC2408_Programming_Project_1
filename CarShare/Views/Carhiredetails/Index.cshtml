@@ -55,18 +55,23 @@
                     <div id="map_container" style="width:400px; height:400px;"> </div>
                 </td>
             </tr>
-            <tr>
+            <tr style="display:none;">
                 <td>
                     <label>Drop off</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Drop off" class="form-control" name="drop_off" id="drop_off"/>
+                    <input type="hidden" placeholder="Drop off" class="form-control" name="drop_off" id="drop_off" value="0,0"/>
                 </td>
+            </tr>
+
+            <tr>
+                <td><button type="submit" class="btn btn-primary">Submit</button></td>
+                <td><button type="button" class="btn btn-primary" id="btn_no">No</button></td>
             </tr>
         }
         </table>
 
-    <button type="submit" class="btn btn-primary" >Submit</button>
+    
 </form>
 
 <script>
@@ -74,7 +79,14 @@
          $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });;
          $("#timepicker").timepicker({timeFormat: 'h:mm:ss p',});
          $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });;
-         $('#timepicker1').timepicker({timeFormat: 'h:mm:ss p',});
+         $('#timepicker1').timepicker({ timeFormat: 'h:mm:ss p', });
+
+         $('#btn_no').click(function() {
+             window.location.href = '/Carhire';
+             return false;
+         });
+
+
     });
 
     function initMap() {

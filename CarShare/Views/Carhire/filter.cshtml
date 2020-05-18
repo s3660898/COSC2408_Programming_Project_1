@@ -1,4 +1,4 @@
-@model CarShare.Models.Car;
+﻿@model CarShare.Models.Car;
 @{
     ViewData["Title"] = "AddCarHire";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,48 +12,48 @@
 
 <div>
     <form action="/Carhire/filter" method="POST">
-    <table class="table">
-        <tr>
-            <th style="border-top:0px !important;">Vehicle Type</th>
-            <th style="border-top:0px !important;">Seats </th>
-            <th style="border-top:0px !important;">From </th>
-            <th style="border-top:0px !important;">Until</th>
-        </tr>
-        <tr>
-            <td style="border-top:0px !important;">
-                <select name="vehicle_type">
-                    <option value=""></option>
-                    <option value="1">Passenger </option>
-                    <option value="2">Van </option>
-                    <option value="3">Pickup </option>
-                    <option value="4">Luxury </option>
-                    <option value="5">Sport </option>
-                </select>
+        <table class="table">
+            <tr>
+                <th style="border-top:0px !important;">Vehicle Type</th>
+                <th style="border-top:0px !important;">Seats </th>
+                <th style="border-top:0px !important;">From </th>
+                <th style="border-top:0px !important;">Until</th>
+            </tr>
+            <tr>
+                <td style="border-top:0px !important;">
+                    <select name="vehicle_type">
+                        <option value=""></option>
+                        <option value="1">Passenger </option>
+                        <option value="2">Van </option>
+                        <option value="3">Pickup </option>
+                        <option value="4">Luxury </option>
+                        <option value="5">Sport </option>
+                    </select>
 
-            </td>
-            <td style="border-top:0px !important;">
-                <select name="num_seats">
-                    <option value=""></option>
-                    <option value="2">2 </option>
-                    <option value="3">3 </option>
-                    <option value="4">4 </option>
-                    <option value="5">5 </option>
-                    <option value="6">6 </option>
-                </select>
-            </td>
-            <td style="border-top:0px !important;">
-                <input type="text" name="from_date" id="from_date">
-            </td>
-            <td style="border-top:0px !important;">
-                <input type="text" name="until_date" id="until_date">
-            </td>
+                </td>
+                <td style="border-top:0px !important;">
+                    <select name="num_seats">
+                        <option value=""></option>
+                        <option value="2" >2 </option>
+                        <option value="3">3 </option>
+                        <option value="4">4 </option>
+                        <option value="5">5 </option>
+                        <option value="6">6 </option>
+                    </select>
+                </td>
+                <td style="border-top:0px !important;">
+                    <input type="text" name="from_date" id="from_date">
+                </td>
+                <td style="border-top:0px !important;">
+                    <input type="text" name="until_date" id="until_date">
+                </td>
 
-            <td  style="border-top:0px !important;">
-                <input class="btn btn-outline-primary" type="submit" value="submit" />
-            </td>
-        </tr>
+                <td  style="border-top:0px !important;">
+                    <input class="btn btn-outline-primary"  type="submit" value="submit" />
+                </td>
+            </tr>
 
-    </table>
+        </table>
     </form>
 </div>
 
@@ -96,7 +96,7 @@
     function initMap() {
         var totalCar = $('.map_holder').length;
 
-        for (i = 0; i < totalCar; i++) { 
+        for (i = 0; i < totalCar; i++) {
            var coordinate = { lat: -37.82, lng: 144.95 };
            // The map, centered at coordinate
            var map = new google.maps.Map(
@@ -107,7 +107,7 @@
     }
 
     /*
-     * 
+     *
      *            var coordinate = { lat: -37.82, lng: 144.95 };
            // The map, centered at coordinate
            var map = new google.maps.Map(

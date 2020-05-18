@@ -92,7 +92,7 @@ namespace CarShare.Controllers
                 Console.WriteLine("ERROR while saving");
             }
             
-            return RedirectToAction( "Index", "Carhiredetails");
+            return RedirectToAction( "Index", "Carhire");
         }
 
 
