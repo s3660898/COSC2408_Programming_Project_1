@@ -19,6 +19,8 @@
     <Compile Remove="Data\Migrations\20200512113421_UpdatedCarModel.Designer.cs" />
     <Compile Remove="Data\Migrations\20200430081206_ParkingLots.cs" />
     <Compile Remove="Data\Migrations\20200430081206_ParkingLots.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200518150702_AddedParkingLotToCar.cs" />
+    <Compile Remove="Data\Migrations\20200518150702_AddedParkingLotToCar.Designer.cs" />
   </ItemGroup>
 
 

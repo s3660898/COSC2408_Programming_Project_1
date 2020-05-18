@@ -40,5 +40,7 @@ namespace CarShare.Models
         public int ImageId { get; set; }
         [Required]
         public Image Image { get; set; }
+        public int? ParkingLotId { get; set; }
+        public ParkingLot ParkingLot { get; set; }
     }
 }
