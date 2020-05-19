@@ -27,22 +27,9 @@
 
     <div>
         <label>Pick-Up Time</label>
-        <input type="text" class="form-control" />
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
+        <input type="text" class="form-control" id="pickUpTime" value="" runat="Server" clientIDMode="Static"/>
     </div>
 
-    <div>
-        <label>Drop-Off Time</label>
-        <select class="form-control" onchange="updateList()" id="selectNumSeats">
-            <option value="-1">Any Seats</option>
-            <option value="2">2</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
-    </div>
 </div>
 
 <table class="table">
@@ -60,6 +47,7 @@
 </table>
 
 <script>
+    $('#pickUpTime').datepicker();
     updateList();
 
     function updateList() {
