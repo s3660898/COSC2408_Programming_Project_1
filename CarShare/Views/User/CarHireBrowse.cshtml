@@ -9,14 +9,33 @@
 <div class="d-flex justify-content-between">
     <div>
         <label>Car Type</label>
-        <select class="form-control" asp-items="Html.GetEnumSelectList<CarCategory>()" onchange="myFunct()" id="selectCarCategory">
+        <select class="form-control" asp-items="Html.GetEnumSelectList<CarCategory>()" onchange="updateList()" id="selectCarCategory">
             <option value="-1">Any Type</option>
         </select>
     </div>
 
     <div>
         <label>Minimum Seats</label>
-        <select class="form-control" onchange="myFunct()" id="selectNumSeats">
+        <select class="form-control" onchange="updateList()" id="selectNumSeats">
+            <option value="-1">Any Seats</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Pick-Up Time</label>
+        <input type="text" class="form-control" />
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+
+    <div>
+        <label>Drop-Off Time</label>
+        <select class="form-control" onchange="updateList()" id="selectNumSeats">
             <option value="-1">Any Seats</option>
             <option value="2">2</option>
             <option value="4">4</option>
@@ -41,9 +60,9 @@
 </table>
 
 <script>
-    myFunct();
+    updateList();
 
-    function myFunct() {
+    function updateList() {
         const tableCarsOld = document.getElementById('tbodyCars');
         var url = "/api/ApiCarHire?Category=" + document.getElementById("selectCarCategory").value +
             "&NumSeats=" + document.getElementById("selectNumSeats").value;
