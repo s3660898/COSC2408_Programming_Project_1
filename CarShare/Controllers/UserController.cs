@@ -18,5 +18,10 @@ namespace CarShare.Controllers
             Console.WriteLine(User.Identity);
             return View();
         }
+
+        public IActionResult CarHireBrowse()
+        {
+            return View();
+        }
     }
 }
