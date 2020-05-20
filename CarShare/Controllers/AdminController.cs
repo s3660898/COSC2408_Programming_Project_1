@@ -126,7 +126,6 @@ namespace CarShare.Controllers
                         {
                             Email = user.Email,
                             HireTime = history.HireTime,
-                            HireDuration = history.HireDuration,
                             InitialLongitude = history.InitialLongitude,
                             InitialLatitude = history.InitialLatitude,
                             ReturnedLongitude = history.ReturnedLongitude,

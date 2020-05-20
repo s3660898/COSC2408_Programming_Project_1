@@ -5,17 +5,17 @@
 }
 
 <style>
-    tr.click-row{
+    tr.click-row {
         cursor: pointer;
     }
 
-    .grow{
+    .grow {
         transition: all .2s ease-in-out;
     }
 
-    .grow:hover{
-        transform: scale(1.05);
-    }
+        .grow:hover {
+            transform: scale(1.05);
+        }
 </style>
 <h1>Hire a car</h1>
 
@@ -40,12 +40,12 @@
 
     <div>
         <label>Pick-Up Time</label>
-        <input type="text" class="form-control" id="pickUpTime" name="pickUpTime" value="" runat="Server" clientIDMode="Static" />
+        <input type="text" class="form-control" id="pickUpTime" name="pickUpTime" value="" runat="Server" clientIDMode="Static" autocomplete="off" />
     </div>
 
     <div>
         <label>Return Time</label>
-        <input type="text" class="form-control" id="dropOffTime" name="dropOffTime" value="" runat="Server" clientIDMode="Static" />
+        <input type="text" class="form-control" id="dropOffTime" name="dropOffTime" value="" runat="Server" clientIDMode="Static" autocomplete="off" />
     </div>
 
 </div>
@@ -68,9 +68,21 @@
         async
         defer></script>
 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
-    $('#pickUpTime').datepicker();
-    $('#dropOffTime').datepicker();
+    flatpickr(document.getElementById("pickUpTime"), {
+        enableTime: true,
+        allowInput: true,
+        dateFormat: "d/m/Y h:i K"
+    });
+    flatpickr(document.getElementById("dropOffTime"), {
+        enableTime: true,
+        allowInput: true,
+        dateFormat: "d/m/Y h:i K"
+    });
 
     // initial call on page load
     updateList();

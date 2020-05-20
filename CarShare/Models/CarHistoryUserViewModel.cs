@@ -13,6 +13,8 @@ namespace CarShare.Models
         public TimeSpan HireDuration { get; set; }
         public float InitialLongitude { get; set; }
         public float InitialLatitude { get; set; }
+        public string ReturnAddress { get; set; }
+        public DateTime ReturnedTime { get; set; }
         public float ReturnedLongitude { get; set; }
         public float ReturnedLatitude { get; set; }
         public HireStatus Status { get; set; }

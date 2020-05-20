@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using CarShare.Data;
 using CarShare.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace CarShare.Controllers
@@ -14,10 +16,12 @@ namespace CarShare.Controllers
     public class UserController : Controller
     {
         ApplicationDbContext _db;
+        private IHttpContextAccessor _hca;
 
-        public UserController(ApplicationDbContext db)
+        public UserController(ApplicationDbContext db, IHttpContextAccessor hca)
         {
             _db = db;
+            _hca = hca;
         }
 
         // GET: /<controller>/
@@ -54,6 +58,33 @@ namespace CarShare.Controllers
             ViewBag.DropOffTime = DropOffTime;
 
             return View();
+        }
+
+        public IActionResult HireCarSubmit(int Id, string PickUpTime, string DropOffTime)
+        {
+            Car car = _db.Cars.Where(c => c.Id == Id).FirstOrDefault();
+            ParkingLot pl = _db.ParkingLots.Where(p => p.Id == car.ParkingLotId).FirstOrDefault();
+            DateTime pickUpDateTime = DateTime.Parse(PickUpTime);
+            DateTime dropOffDateTime = DateTime.Parse(DropOffTime);
+            TimeSpan duration = dropOffDateTime.Subtract(pickUpDateTime);
+
+            CarHistory history = new CarHistory()
+            {
+                HireTime = pickUpDateTime,
+                InitialLongitude = pl.Longitude,
+                InitialLatitude = pl.Latitude,
+                ReturnedLongitude = -1,
+                ReturnedLatitude = -1,
+                ReturnedTime = dropOffDateTime,
+                Status = HireStatus.Planned,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                CarId = car.Id
+            };
+
+            _db.CarHistory.Add(history);
+            _db.SaveChanges();
+
+            return View("CarHireConfirmation");
         }
     }
 }

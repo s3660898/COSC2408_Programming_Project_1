@@ -23,7 +23,8 @@ namespace CarShare.Models
         public DateTime HireTime { get; set; }
 
         // how long the car is hired for
-        public TimeSpan HireDuration { get; set; }
+        // 20.05.20 - This maps to a Sql Time column, which only allows for times 0 -> 24 hours, so I'm removing it...
+        // public TimeSpan HireDuration { get; set; }
 
         // the geo position of the car at the start of the hire
         // (just set to any number for now)

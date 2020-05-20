@@ -27,13 +27,14 @@ namespace CarShare.Controllers
             var cars = _db.Cars.ToList<Car>();
 
             var query = from car in cars
-                        join history in carHistories on car equals history.Car
+                        join history in carHistories on car equals history.Car orderby history.HireTime
                         select new CarHistoryUserViewModel()
                         {
                             Registration = car.Registration,
                             Description = car.Description,
+                            ReturnedTime = history.ReturnedTime,
                             HireTime = history.HireTime,
-                            HireDuration = history.HireDuration,
+                            ReturnAddress = _db.ParkingLots.Where(pl => pl.Id == car.ParkingLotId).FirstOrDefault().Address,
                             InitialLongitude = history.InitialLongitude,
                             InitialLatitude = history.InitialLatitude,
                             ReturnedLongitude = history.ReturnedLongitude,

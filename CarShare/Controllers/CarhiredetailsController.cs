@@ -66,7 +66,6 @@ namespace CarShare.Controllers
             CarHistory CH = new CarHistory()
             {
                 HireTime = dt,
-                HireDuration      = TimeSpan.Parse(hirDuration),
                 InitialLatitude   = Convert.ToSingle(iniCoordinate[1]),
                 InitialLongitude  = Convert.ToSingle(iniCoordinate[0]),
                 ReturnedLatitude  = Convert.ToSingle(retCoordinate[1]),
