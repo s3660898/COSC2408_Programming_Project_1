@@ -9,6 +9,8 @@ namespace CarShare.Models
     {
         public string Email { get; set; }
         public DateTime HireTime { get; set; }
+        public DateTime ReturnedTime { get; set; }
+        public string ReturnAddress { get; set; }
         public TimeSpan HireDuration { get; set; }
         public float InitialLongitude { get; set; }
         public float InitialLatitude { get; set; }

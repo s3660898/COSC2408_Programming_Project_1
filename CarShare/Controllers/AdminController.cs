@@ -119,6 +119,7 @@ namespace CarShare.Controllers
 
             var carHistories = _db.CarHistory.Where(a => a.CarId == Id).OrderBy(a => a.Id).ToList();
             var users = _db.Users.ToList<CarShareUser>();
+            ParkingLot pl = _db.ParkingLots.Where(pl => pl.Id == car.ParkingLotId).FirstOrDefault();
 
             var query = from user in users
                         join history in carHistories on user equals history.User
@@ -126,10 +127,8 @@ namespace CarShare.Controllers
                         {
                             Email = user.Email,
                             HireTime = history.HireTime,
-                            InitialLongitude = history.InitialLongitude,
-                            InitialLatitude = history.InitialLatitude,
-                            ReturnedLongitude = history.ReturnedLongitude,
-                            ReturnedLatitude = history.ReturnedLatitude,
+                            ReturnedTime = history.ReturnedTime,
+                            ReturnAddress = pl.Address,
                             Status = history.Status
                         };
 
