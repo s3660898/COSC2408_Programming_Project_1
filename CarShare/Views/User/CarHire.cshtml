@@ -1,9 +1,75 @@
-﻿
+﻿@model CarShare.Models.Car;
 @{
     ViewData["Title"] = "CarHire";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMBzIrXd_av3r74X_NcAXJ-DePpLGLcE&callback=initMap&libraries=&v=weekly"
+        async
+        defer></script>
 
-<h1>CarHire</h1>
+<script>
+    // Google Maps Api calling function, called within updateList()
+    function initMap() {
+        let map = new google.maps.Map(document.getElementById("divMap"), {
+            center: { lat: @ViewBag.plLatitude, lng: @ViewBag.plLongitude },
+            zoom: 16,
+            disableDefaultUI: true
+        });
 
-<p>You made it!</p>
+        var marker = new google.maps.Marker({
+            position: { lat: @ViewBag.plLatitude, lng: @ViewBag.plLongitude },
+            map: map,
+            title: 'pickup/dropoff location'
+        })
+    }
+</script>
+
+<h1>Car hire</h1>
+
+<table class="table">
+    <tr>
+        <td>Image</td>
+        <td><img src="@ViewBag.ImageUrl" /></td>
+    </tr>
+    <tr>
+        <td>Registration</td>
+        <td>@ViewBag.Car.Registration</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@ViewBag.Car.Description</td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>@ViewBag.Car.Category</td>
+    </tr>
+    <tr>
+        <td>Seats</td>
+        <td>@ViewBag.Car.NumSeats</td>
+    </tr>
+    <tr>
+        <td>Pick up time</td>
+        <td>@ViewBag.PickUpTime</td>
+    </tr>
+    <tr>
+        <td>Drop off time</td>
+        <td>@ViewBag.DropOffTime</td>
+    </tr>
+    <tr>
+        <td>Pickup and dropoff location</td>
+        <td>
+            <p>@ViewBag.plAddress</p>
+            <div id="divMap" style="height: 20em"></div>
+        </td>
+    </tr>
+
+</table>
+
+<p>Book this car?</p>
+<div class="d-flex justify-content-around">
+    <button class="btn btn-primary">Yes</button>
+    <button class="btn btn-danger">No</button>
+</div>
+
+
+

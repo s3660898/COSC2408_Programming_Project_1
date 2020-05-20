@@ -113,7 +113,7 @@ namespace CarShare.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ViewCar(int Id)
+        public async Task<IActionResult> ViewCar(int Id, string PickUpTime, string DropOffTime)
         {
             var car = _db.Cars.SingleOrDefault(c => c.Id == Id);
 
@@ -152,6 +152,10 @@ namespace CarShare.Controllers
             Image img = _db.Images.SingleOrDefault(i => i.Id == car.ImageId);
             ViewBag.ImageTitle = img.Title;
             ViewBag.ImageUrl = string.Format("data:image/jgp;base64,{0}", Convert.ToBase64String(img.Data));
+
+            // Other
+            ViewBag.PickUpTime = PickUpTime;
+            ViewBag.DropOffTime = DropOffTime;
 
             return View(car);
         }
