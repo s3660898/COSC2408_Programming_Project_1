@@ -33,8 +33,11 @@ namespace CarShare.Controllers
                 cars = cars.Where(c => c.NumSeats >= NumSeats).ToList();
 
             List<CarHireBrowseViewModel> carVMs = new List<CarHireBrowseViewModel>();
-            foreach(Car c in cars)
+            foreach (Car c in cars)
             {
+                // getting image
+                Image img = _db.Images.SingleOrDefault(i => i.Id == c.ImageId);
+
                 carVMs.Add(new CarHireBrowseViewModel()
                 {
                     Id = c.Id,
@@ -42,7 +45,8 @@ namespace CarShare.Controllers
                     Category = c.Category.ToString(),
                     NumSeats = c.NumSeats,
                     Latitude = c.Latitude,
-                    Longitude = c.Longitude
+                    Longitude = c.Longitude,
+                    ImageUrl = string.Format("data:image/jgp;base64,{0}", Convert.ToBase64String(img.Data))
                 });
             }
             return carVMs.ToArray();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using CarShare.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace CarShare.Controllers
@@ -11,6 +12,13 @@ namespace CarShare.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        ApplicationDbContext _db;
+
+        public UserController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -21,6 +29,12 @@ namespace CarShare.Controllers
 
         public IActionResult CarHireBrowse()
         {
+            return View();
+        }
+
+        public IActionResult CarHire(int Id)
+        {
+
             return View();
         }
     }
