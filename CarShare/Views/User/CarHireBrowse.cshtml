@@ -45,7 +45,7 @@
 
     <div>
         <label>Return Time</label>
-        <input type="text" class="form-control" id="returnTime" name="returnTime" value="" runat="Server" clientIDMode="Static" />
+        <input type="text" class="form-control" id="dropOffTime" name="dropOffTime" value="" runat="Server" clientIDMode="Static" />
     </div>
 
 </div>
@@ -70,7 +70,7 @@
 
 <script>
     $('#pickUpTime').datepicker();
-    $('#returnTime').datepicker();
+    $('#dropOffTime').datepicker();
 
     // initial call on page load
     updateList();
@@ -91,7 +91,9 @@
     }
     // click callback function
     function clickFunct(url) {
-        window.location = url;
+        window.location = url +
+            "&PickUpTime=" + document.getElementById("pickUpTime").value +
+            "&DropOffTime=" + document.getElementById("dropOffTime").value;
         // window.location = $(this.data("url"));
     }
     // list updating function called when changing select box values

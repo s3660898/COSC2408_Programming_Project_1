@@ -33,7 +33,7 @@ namespace CarShare.Controllers
             return View();
         }
 
-        public IActionResult CarHire(int Id)
+        public IActionResult CarHire(int Id, string PickUpTime, string DropOffTime)
         {
             Car car = _db.Cars.Where(c => c.Id == Id).FirstOrDefault();
             ViewBag.car = car;
@@ -48,6 +48,10 @@ namespace CarShare.Controllers
             ViewBag.plLatitude = pl.Latitude;
             ViewBag.plLongitude = pl.Longitude;
             ViewBag.plAddress = pl.Address;
+
+            // misc
+            ViewBag.PickUpTime = PickUpTime;
+            ViewBag.DropOffTime = DropOffTime;
 
             return View();
         }
