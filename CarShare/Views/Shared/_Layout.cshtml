@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CarShare</title>
+    <title>@ViewData["Title"] - UrbanHire</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/custom.css" />
@@ -23,18 +23,18 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">CarShare</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">UrbanHire</a>
 
                     }
                     else
                     {
-                        <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Index">CarShare</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="User" asp-action="Index">UrbanHire</a>
                     }
 
                 }
                 else
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarShare</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UrbanHire</a>
                 }
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@
 
         <footer class="border-top footer text-muted">
             <div class="container">
-                &copy; 2020 - CarShare - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; 2020 - Urban Hire - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>
 
