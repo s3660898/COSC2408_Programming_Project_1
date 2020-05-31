@@ -27,8 +27,8 @@ namespace CarShare.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            Console.WriteLine("From Index");
-            Console.WriteLine(User.Identity);
+            //Console.WriteLine("From Index");
+            //Console.WriteLine(User.Identity);
             return View();
         }
 
