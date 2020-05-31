@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace CarShare.Models
 {
-    public class AddCarViewModel
+    public class CarHireBrowseViewModel
     {
-        public string Registration { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
+        public string Category { get; set; }
+        public int NumSeats { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
-        public CarStatus Status { get; set; }
-        public CarCategory Category { get; set; }
-        public int NumSeats { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

@@ -1,0 +1,11 @@
+﻿@model CarShare.Models.Car
+@{
+    ViewData["Title"] = "AddCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you want to delete @Model.Description, @Model.Registration?</h2>
+
+<a class="btn btn-danger" href="/Admin/DeleteCar?Id=@Model.Id">Yes</a>
+<a class="btn btn-primary" href="/Admin/FleetManagement">No</a>
+

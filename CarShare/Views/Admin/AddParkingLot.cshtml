@@ -1,0 +1,32 @@
+﻿@model CarShare.Models.ParkingLot;
+@{
+    ViewData["Title"] = "AddParkingLot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add Parking Lot</h1>
+
+@*Allows for details of a new Parking Lot to be added; the Latitude, Longitude, Address and Description*@
+<form asp-action="AddParkingLot" asp-controller="Admin" autocomplete="off">
+    @Html.HiddenFor(c => c.Id) @*The Id is hidden, so it does not have to be entered manually by the Admin*@
+    <table class="table">
+        <tr>
+            <td><label asp-for="Latitude"></label></td>
+            <td><input asp-for="Latitude" placeholder="Latitude" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Longitude"></label></td>
+            <td><input asp-for="Longitude" placeholder="Longitude" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Address"></label></td>
+            <td><input asp-for="Address" placeholder="Address" class="form-control" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Description"></label></td>
+            <td><input asp-for="Description" placeholder="Description" class="form-control" /></td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

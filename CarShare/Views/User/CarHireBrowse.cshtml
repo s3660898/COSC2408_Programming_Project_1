@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewData["Title"] = "CarHireBrowse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    tr.click-row {
+        cursor: pointer;
+    }
+
+    .grow {
+        transition: all .2s ease-in-out;
+    }
+
+        .grow:hover {
+            transform: scale(1.05);
+        }
+</style>
+<h1>Hire a car</h1>
+
+<div class="d-flex justify-content-between" style="margin-bottom:1em;">
+    <div>
+        <label>Car Type</label>
+        <select class="form-control" asp-items="Html.GetEnumSelectList<CarCategory>()" onchange="updateList()" id="selectCarCategory">
+            <option value="-1">Any Type</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Minimum Seats</label>
+        <select class="form-control" onchange="updateList()" id="selectNumSeats">
+            <option value="-1">Any Seats</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Pick-Up Time</label>
+        <input type="text" class="form-control" id="pickUpTime" name="pickUpTime" value="" runat="Server" clientIDMode="Static" autocomplete="off" />
+    </div>
+
+    <div>
+        <label>Return Time</label>
+        <input type="text" class="form-control" id="dropOffTime" name="dropOffTime" value="" runat="Server" clientIDMode="Static" autocomplete="off" />
+    </div>
+
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Car Type</th>
+            <th>Seats</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyCars">
+    </tbody>
+</table>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMBzIrXd_av3r74X_NcAXJ-DePpLGLcE&callback=initMap&libraries=&v=weekly"
+        async
+        defer></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    flatpickr(document.getElementById("pickUpTime"), {
+        enableTime: true,
+        allowInput: true,
+        dateFormat: "d/m/Y h:i K"
+    });
+    flatpickr(document.getElementById("dropOffTime"), {
+        enableTime: true,
+        allowInput: true,
+        dateFormat: "d/m/Y h:i K"
+    });
+
+    // initial call on page load
+    updateList();
+
+    // Google Maps Api calling function, called within updateList()
+    function initMap(divMap, latitude, longitude) {
+        let map = new google.maps.Map(divMap, {
+            center: { lat: latitude, lng: longitude },
+            zoom: 16,
+            disableDefaultUI: true
+        });
+
+        var marker = new google.maps.Marker({
+            position: { lat: latitude, lng: longitude },
+            map: map,
+            title: 'car location'
+        })
+    }
+    // click callback function
+    function clickFunct(url) {
+        window.location = url +
+            "&PickUpTime=" + document.getElementById("pickUpTime").value +
+            "&DropOffTime=" + document.getElementById("dropOffTime").value;
+        // window.location = $(this.data("url"));
+    }
+    // list updating function called when changing select box values
+    function updateList() {
+        const tableCarsOld = document.getElementById('tbodyCars');
+        var url = "/api/ApiCarHire?Category=" + document.getElementById("selectCarCategory").value +
+            "&NumSeats=" + document.getElementById("selectNumSeats").value;
+
+        // clearing previous values
+        let tableCarsNew = tableCarsOld.cloneNode(false);
+        tableCarsOld.parentNode.replaceChild(tableCarsNew, tableCarsOld);
+
+        let tableCars = tableCarsNew;
+
+        fetch(url)
+            .then((resp) => resp.json())
+            .then(function (data) {
+
+                // getting data from response
+                let cars = data;
+
+                return cars.map(function (car) {
+                    // creating elements
+                    let tdImage = document.createElement("td"),
+                        tdDescription = document.createElement("td"),
+                        tdCarCategory = document.createElement("td"),
+                        tdSeats = document.createElement("td"),
+                        tdLocation = document.createElement("td");
+                    var divMap = document.createElement("div");
+                    let imgImage = document.createElement("img");
+
+                    // filling elements
+                    tdDescription.innerText = car.description;
+                    tdCarCategory.innerText = car.category;
+                    tdSeats.innerText = car.numSeats;
+                    tdLocation.innerText = "";
+                    divMap.style = "height: 15em; width: 20em;";
+                    imgImage.class = "img mx-auto d-block";
+                    imgImage.style = "height: 15em; width: auto;"
+                    imgImage.src = car.imageUrl;
+
+                    // appending
+                    let rowCar = document.createElement("tr");
+                    rowCar.setAttribute("onclick", "clickFunct(\"/User/CarHire?Id=" + car.id + "\")");
+                    rowCar.setAttribute("class", "click-row grow");
+                    rowCar.setAttribute("data-url", "https://google.com");
+                    tableCars.appendChild(rowCar);
+                    rowCar.appendChild(tdImage);
+                    rowCar.appendChild(tdDescription);
+                    rowCar.appendChild(tdCarCategory);
+                    rowCar.appendChild(tdSeats);
+                    rowCar.appendChild(tdLocation);
+                    tdLocation.appendChild(divMap);
+                    tdImage.appendChild(imgImage);
+
+                    // making map
+                    initMap(divMap, car.latitude, car.longitude);
+
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+</script>
+

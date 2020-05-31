@@ -4,14 +4,16 @@ using CarShare.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarShare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200430082325_AddedParkingLots")]
+    partial class AddedParkingLots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,11 +109,7 @@ namespace CarShare.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ImageId")
-                        .HasColumnType("int");
 
                     b.Property<float>("Latitude")
                         .HasColumnType("real");
@@ -122,21 +120,13 @@ namespace CarShare.Data.Migrations
                     b.Property<int>("NumSeats")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ParkingLotId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Registration")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.HasIndex("ParkingLotId");
 
                     b.ToTable("Cars");
                 });
@@ -150,6 +140,9 @@ namespace CarShare.Data.Migrations
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
+
+                    b.Property<TimeSpan>("HireDuration")
+                        .HasColumnType("time");
 
                     b.Property<DateTime>("HireTime")
                         .HasColumnType("datetime2");
@@ -182,24 +175,6 @@ namespace CarShare.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CarHistory");
-                });
-
-            modelBuilder.Entity("CarShare.Models.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte[]>("Data")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("CarShare.Models.ParkingLot", b =>
@@ -359,19 +334,6 @@ namespace CarShare.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("CarShare.Models.Car", b =>
-                {
-                    b.HasOne("CarShare.Models.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarShare.Models.ParkingLot", "ParkingLot")
-                        .WithMany()
-                        .HasForeignKey("ParkingLotId");
                 });
 
             modelBuilder.Entity("CarShare.Models.CarHistory", b =>

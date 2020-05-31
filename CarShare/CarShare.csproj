@@ -3,22 +3,51 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-CarShare-25FFC103-1D81-45B8-9B3E-C46B3CA451AE</UserSecretsId>
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Areas\Identity\Data\CarShareContext.cs" />
+    <Compile Remove="Data\Migrations\20200413082259_AddedCarHistory.cs" />
+    <Compile Remove="Data\Migrations\20200413082259_AddedCarHistory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200413082506_AddedCarHistory.cs" />
+    <Compile Remove="Data\Migrations\20200413082506_AddedCarHistory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200413082741_AddedCarHistory.cs" />
+    <Compile Remove="Data\Migrations\20200413082741_AddedCarHistory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200512113212_UpdatedCarModel.cs" />
+    <Compile Remove="Data\Migrations\20200512113212_UpdatedCarModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200512113421_UpdatedCarModel.cs" />
+    <Compile Remove="Data\Migrations\20200512113421_UpdatedCarModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200430081206_ParkingLots.cs" />
+    <Compile Remove="Data\Migrations\20200430081206_ParkingLots.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200518150702_AddedParkingLotToCar.cs" />
+    <Compile Remove="Data\Migrations\20200518150702_AddedParkingLotToCar.Designer.cs" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+    <PackageReference Include="NEST" Version="7.6.1" />
     <PackageReference Include="SendGrid" Version="9.13.1" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="X.PagedList" Version="8.0.7" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

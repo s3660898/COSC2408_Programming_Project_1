@@ -1,14 +1,14 @@
-﻿@model CarShare.Models.Car;
+﻿@model CarShare.Models.Car
 @{
-    ViewData["Title"] = "AddCar";
+    ViewData["Title"] = "ViewCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>AddCar</h1>
-
-
-
-<form asp-action="AddCar" asp-controller="Admin" method="post" enctype="multipart/form-data" autocomplete="off">
+<div class="d-flex justify-content-between" style="margin: 0rem 0rem 0.5rem">
+    <h2>Edit Car</h2>
+    <a class="btn btn-danger" href="/Admin/DeleteCarConfirmation?Id=@Model.Id">Delete</a>
+</div>
+<form asp-action="EditCar" asp-controller="Admin" method="post" enctype="multipart/form-data" autocomplete="off">
+    @Html.HiddenFor(c => c.Id)
     <table class="table">
         <tr>
             <td><label asp-for="ParkingLot"></label></td>

@@ -1,0 +1,114 @@
+﻿@model CarShare.Models.Car;
+@{
+    ViewData["Title"] = "CarHire";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpMBzIrXd_av3r74X_NcAXJ-DePpLGLcE&callback=initMap&libraries=&v=weekly"
+        async
+        defer></script>
+
+<script>
+    // Google Maps Api calling function, called within updateList()
+    function initMap() {
+        let map = new google.maps.Map(document.getElementById("divMap"), {
+            center: { lat: @ViewBag.plLatitude, lng: @ViewBag.plLongitude },
+            zoom: 16,
+            disableDefaultUI: true
+        });
+
+        var marker = new google.maps.Marker({
+            position: { lat: @ViewBag.plLatitude, lng: @ViewBag.plLongitude },
+            map: map,
+            title: 'pickup/dropoff location'
+        })
+    }
+</script>
+
+<style>
+    .frost{
+        background-image: url("/img/car1.png");
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-size: 100%, auto;
+        background-position: 50% 50%;
+
+        filter: blur(14px) grayscale(50%);
+
+        transform: scale(1.03);
+        z-index: 0;
+
+        height: 20em
+    }
+
+    .carimg {
+        height: 20em;
+        z-index: 10;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+    }
+</style>
+
+<h1>Car hire</h1>
+
+<table class="table">
+    <tr>
+        <td colspan="2">
+            <div style="position: relative;">
+                <div style="overflow:hidden">
+                    <div class="frost"></div>
+                </div>
+
+                <div class="d-flex justify-content-around">
+                    <img src="@ViewBag.ImageUrl" class="carimg" />
+                </div>
+                
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Registration</td>
+        <td>@ViewBag.Car.Registration</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@ViewBag.Car.Description</td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>@ViewBag.Car.Category</td>
+    </tr>
+    <tr>
+        <td>Seats</td>
+        <td>@ViewBag.Car.NumSeats</td>
+    </tr>
+    <tr>
+        <td>Pick up time</td>
+        <td>@ViewBag.PickUpTime</td>
+    </tr>
+    <tr>
+        <td>Drop off time</td>
+        <td>@ViewBag.DropOffTime</td>
+    </tr>
+    <tr>
+        <td>Pickup and dropoff location</td>
+        <td>
+            <p>@ViewBag.plAddress</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="divMap" style="height: 20em"></div>
+        </td>
+    </tr>
+
+</table>
+
+<p>Book this car?</p>
+<div class="d-flex justify-content-around">
+    <a class="btn btn-primary" href="/User/HireCarSubmit?Id=@ViewBag.Car.Id&PickUpTime=@ViewBag.PickUpTime&DropOffTime=@ViewBag.DropOffTime">Yes</a>
+    <a class="btn btn-danger" href="User/CarHireBrowse">No</a>
+</div>
+
+
+
